@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import Student from './components/student'
+import History from './components/history'
 import Admin from './components/admin'
-import Login from './components/login'
+import Login from './components/Login/app'
 import {BrowserRouter as Router, Route,NavLink} from 'react-router-dom'
 ReactDOM.render(
   <React.StrictMode>
@@ -18,6 +19,7 @@ ReactDOM.render(
       <Route  path="/student" component={Student}/>
       <Route  path="/admin" component={Admin}/>
       <Route  path="/login" component={Login}/>
+      <Route  path="/student/history" component={History}/>
     </Router>
   </React.StrictMode>,
   document.getElementById('root')

@@ -1,0 +1,61 @@
+.container-mob {
+  display: none;
+  width:90%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 20px;
+  overflow: hidden;
+  min-height: 80vh;
+  background: white;
+}
+.form-mob {
+  width: 90%;
+  background: white;
+  padding: 1em 1em;
+  height: 60vh;
+  font-size: 20px;
+  transition: 1s ease-in-out;
+  transform: translateY(0%);
+}
+.form-mob2 {
+  width: 90vw;
+  background: white;
+  padding: 1em 1em;
+  height: 60vh;
+  font-size: 20px;
+  transition: 1s ease-in-out;
+  transform: translateY(20vh);
+}
+.sidepanel-mob {
+  z-index: 99;
+  background-image: url("./mobback.svg");
+  background-color: #fff;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 0px 10px;
+  height: 20vh;
+  transition: 1s ease-in-out;
+  transform: translateY(0%);
+}
+.sidepanel-mob2 {
+  z-index: 99;
+  background-image: url("./mobback2.svg");
+  background-color: #fff;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 0px -10px;
+  height: 20vh;
+  transition: 1s ease-in-out;
+  transform: translateY(-65vh);
+}
+#toggle-tabs:after {
+  opacity: 1;
+}
+@media only screen and (max-width: 600px) {
+  .container-mob {
+    display: block;
+  }
+  .app{
+    width:100%;
+    height:100vh;
+  }
+}
