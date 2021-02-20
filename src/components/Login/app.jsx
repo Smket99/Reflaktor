@@ -10,6 +10,8 @@ const responseGoogle = (response) => {
   document.querySelector(".sidepanel").classList.add("move-away2");
   document.querySelector(".container").classList.add("move-away3");
   document.querySelector(".app").classList.add("move-away");
+    setTimeout(()=>window.location.href="/student",3000);
+
 };
 export default class App extends React.Component{
   constructor(props) {
