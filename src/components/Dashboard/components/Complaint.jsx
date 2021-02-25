@@ -3,7 +3,7 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 export default function Complaint(){
   const options = [
-    'Electrician', 'Carpenter', 'Warden','Hostel Rep','Bhavish Pahwa'
+    'Electrician', 'Carpenter', 'Warden','Hostel Rep',
   ];
   const [defaultValue,setDefaultValue]=useState()
   const [complaint,setComplaint]=useState('')
