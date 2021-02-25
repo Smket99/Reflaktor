@@ -35,7 +35,7 @@ export default class App extends React.Component{
             </h1>
             <GoogleLogin
               clientId="1011631254622-veeotam9apd3u9onh2aba8l4atdi5he5.apps.googleusercontent.com"
-              buttonText={this.state.isStudent ? "Sign In" : "Sign In"}
+              buttonText="Sign In"
               onSuccess={responseGoogle}
               onFailure={responseGoogle}
               cookiePolicy={"single_host_origin"}
@@ -55,7 +55,7 @@ export default class App extends React.Component{
             </h1>
             <GoogleLogin
               clientId="1011631254622-veeotam9apd3u9onh2aba8l4atdi5he5.apps.googleusercontent.com"
-              buttonText={this.state.isStudent ? "Sign In" : "Sign In"}
+              buttonText="Sign In"
               onSuccess={responseGoogle}
               onFailure={responseGoogle}
               cookiePolicy={"single_host_origin"}

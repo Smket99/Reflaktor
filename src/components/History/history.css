@@ -163,7 +163,7 @@ img{
   background:mediumaquamarine;
 }
 #done-but:hover{
-  box-shadow:0 4px 8px 0 #66ddaa56 ,0 6px 20px 0#66ddaa56;
+  box-shadow:0 4px 8px 0 #66ddaa56 ,0 6px 20px 0 #66ddaa56;
   opacity:1;
 }
 .logs button{

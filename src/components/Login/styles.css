@@ -14,7 +14,6 @@
   height: 100vh;
   background-image: url('./over-back1.svg');
   background-size: cover;
-  font-family: "Lato";
   transition: 1.6s 1s ease-in-out;
 }
 #toggle-tabs {
@@ -151,7 +150,6 @@
   visibility: hidden;
   opacity: 0;
   padding: 0.2em 0.2em;
-  visibility: hidden;
   border-radius: 2px;
 }
 #forget-pass:hover + .hover-text {
