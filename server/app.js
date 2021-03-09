@@ -7,6 +7,7 @@ const bcrypt= require('bcryptjs');
 const { response } = require('express');
 //google auth
 const {OAuth2Client} = require('google-auth-library');
+const CLIENT_ID = '...' //add your id here
 const client = new OAuth2Client(CLIENT_ID);//smiket add your id as you implemented google auth
 
 const connectDB = require('./Database/connection.js');
