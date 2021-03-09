@@ -1,81 +1,42 @@
-import React,{useState} from 'react'
-import Dropdown from 'react-dropdown';
-import 'react-dropdown/style.css';
+import React from 'react'
+import './Complaint.css'
+import confirm from './Confirm.svg'
 export default function Complaint(){
-  const options = [
-    'Electrician', 'Carpenter', 'Warden','Hostel Rep',
-  ];
-  const [defaultValue,setDefaultValue]=useState()
-  const [complaint,setComplaint]=useState('')
-  const [submitted,setSubmitted]=useState(false)
-  const onSelect=(e)=>{
-    setDefaultValue(e.value)
-  }
-  const handleChange=(e)=>{
-    console.log(e.target.value)
-    setComplaint(e.target.value)
-  }
-  const [issue,setIssue]=useState({
-    service:'',
-    complaint:''
-  })
-  const handleSubmit=(e)=>{
-    e.preventDefault()
-    if(defaultValue===undefined){
-      alert("Please choose a service...")
-    }
-    else if(complaint===''){
-      alert("Please describe your issue")
-    }
-    else{
-     setIssue({
-        service:defaultValue,
-        complaint:complaint
-      })
-      setComplaint('')
-      setDefaultValue()
-      // console.log(issue)
-      setSubmitted(true)
-    }
 
-    
-
+  const registerComplaint=()=>{
+    document.getElementById('complaint-cont').classList.add("move-away");
+    document.getElementById('success-msg').classList.add("move-in");
+    document.getElementById('selector').value="Select";
+    document.getElementById('complaint').value="";
   }
-  const handleNewComplaint=(e)=>{
-    setSubmitted(false)
+  const openNew=()=>{
+    document.getElementById('complaint-cont').classList.remove("move-away");
+    document.getElementById('success-msg').classList.remove("move-in");
   }
-
   return (
-    <>
-    {!submitted && <div className='basic' style={{minHeight:'100vh',position:'relative'}}>
-      <h1 style={{position:'absolute',top:'90px',left:'50%', transform:'translate(-50%,-50%) scale(1.2)'}}>Complaint Box</h1>
-      <div className='basic' style={{boxShadow:'0 4px 8px 0 #00000056, 0 6px 20px 0 #00000056',borderRadius:'15px',margin:'1em', padding:'20px', background:'#fff', alignItems:'center', alignContent:'center', justifyContent:''}}>
-          <h3 style={{margin:'1em'}}>Which service you'll be needing?</h3>
-          <Dropdown style={{}} options={options} onChange={onSelect} value={defaultValue} placeholder="Select an option" placeholder='which service you are looking for?'/>
-      
-          <textarea
-          value={complaint}
-          style={{width:'500px', height:'200px', fontSize:'30px',margin:'1em'}}
-          onChange={handleChange}
-          placeholder='Describe your issue'
-          ></textarea>
-          <button onClick={handleSubmit}
-          style={{marginTop:'1em'}}
-          style={{ borderRadius:'20px' , background:'dodgerblue',color:'white',border:'none',outline:'none',cursor:'pointer', width:'100px', height:'30px'}}
-          
-          >Submit</button>
+    <div className="basic" style={{zIndex:'20',width:'100%',minHeight:'100vh'}}>
+      <div className="basic complaint-wrapper">
+        <div className="basic topper">
+          <b style={{fontSize:'200%'}}>Complaint</b>
         </div>
-      </div>}
+        <div id="complaint-cont" style={{zIndex:'1',height:'100%',width:'100%'}} className="basic">
+        <select id="selector">
+          <option>Select</option>
+          <option>Electrician</option>
+          <option>Carpenter</option>
+          <option>IT</option>
+          <option>Plumber</option>
+          <option>Warden</option>
+        </select>
+        <textArea id="complaint" placeholder="Write your issue here......"></textArea>
+        <button onClick={()=>registerComplaint()}>Submit</button>
+        </div>
+        <div id="success-msg" className="basic success-msg">
+          <img src={confirm}/><h2 style={{fontFamily:'Roboto',margin:'0.5em'}}>Complaint registered successfully</h2>
+          <button onClick={()=>openNew()}>New</button>
+        </div>
+      </div>
 
-      {submitted && <div className="basic" style={{padding:'10px', margin:'30px',borderRadius:'5px',background:'#1e90ff36'}}>
-          <h1 style={{marginRight:'1em'}}>Your complaint is sent to the {issue.service}</h1><br/>
-          <h2 style={{marginRight:'1em'}}>Comment: {issue.complaint}</h2><br></br>
-          <button onClick={handleNewComplaint}
-          style={{marginTop:'1em'}}
-          style={{ borderRadius:'5px' , padding:"10px",background:'#1e90ffd6',color:'white',border:'none',outline:'none',cursor:'pointer'}}
-          
-          >Write a new complaint</button>
-        </div>}
-    </>
+    </div>
   )
 }

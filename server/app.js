@@ -16,7 +16,7 @@ connectDB();
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
-//fetching token from frontend 
+//fetching token from frontend
 app.post('/login',(req,res)=>{
   let token = req.body.token;
   async function verify() {
@@ -46,7 +46,7 @@ app.get('/logout',(req,res)=>{
 })
 
 app.use('/',express.static(path.join(__dirname,'static')))
-/* //login api 
+/* //login api
 app.use(bodyParser.json())
 
 app.post('server/api/login',async (req,res) =>{
@@ -55,16 +55,16 @@ app.post('server/api/login',async (req,res) =>{
       //hashing the password
       const {username,password: plainTextPassword } = req.body
       const password = await bycrypt.hash(password,15)
-      try{  
+      try{
            const res= await User.create({
-                username,password  
-            }) 
+                username,password
+            })
             console.log('Usercreated s',response)
       }catch (errpr){
             console.log(error)
             return res.json({status: 'error'})
       }
-     
+
       res.json({status: 'ok'})
 })
 */

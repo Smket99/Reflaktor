@@ -50,6 +50,7 @@
   font-size: 20px;
   border-bottom: 2px solid #eee;
   padding: 3px;
+  width:100%;
   transition: 0.3s ease-in-out;
   position: relative;
 }
@@ -113,13 +114,9 @@
   -webkit-transition: all ease-in-out 0.3s;
   -o-transition: all ease-in-out 0.3s;
   transition: all ease-in-out 0.3s;
-  /* top: calc(-0.6em - 5px); */
 }
-/* .form-inp:focus {
-  border-bottom: none;
-} */
 .form-inp:focus + .bottom-border {
-  width: 100%;
+  width: calc(100% + 6px);
 }
 .form-submit:hover {
   opacity: 0.6;

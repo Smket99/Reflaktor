@@ -32,11 +32,9 @@
 .active:hover {
   background: dodgerblue;
   opacity:1;
-
 }
-
 .dash-menu {
-  background: #000000;
+  background:#000000;
   width: 25%;
   height: 100%;
   position:relative;
