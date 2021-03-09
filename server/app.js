@@ -67,6 +67,11 @@ app.post('server/api/login',async (req,res) =>{
       res.json({status: 'ok'})
 })
 */
+//use this function while adding routes to pages i.e
+/*app.get('/profile', checkAuthenticated, (req, res)=>{
+    let user = req.user;
+    res.render('profile', {user});
+}) */
 function checkAuthenticated(req, res, next){
 
     let token = req.cookies['session-token'];
