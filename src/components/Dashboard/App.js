@@ -6,6 +6,7 @@ import Profile from "./components/Profile";
 import History from "../History/history";
 import Complaint from "./components/Complaint";
 import Logout from "./components/Logout";
+import Notification from "./components/Notification";
 import LogImg from "./components/Logout.svg";
 import ProfImg from "./components/Profile.svg";
 import HisImg from "./components/History.svg";
@@ -13,9 +14,10 @@ import CompImg from "./components/Complaint.svg";
 import Logo from './components/Logo.svg';
 import Logo1 from './components/Logo1.svg';
 const ham = "./components/Hamburger.svg";
-const comps = [Profile,Complaint,History, Logout];
+const comps = [Profile,Complaint,History, Logout,Notification];
 const back = ".components/over-back.svg";
-var menuItems = ["Profile", "Complaint","History", "Logout"];
+var menuItems = ["Profile", "Complaint","History", "Logout","Notification"];
+var menuItems1=["Profile", "Complaint","History", "Logout"];
 export default function App() {
   const [exp, setExp] = React.useState(false);
   const closeDrawer = () => {
@@ -46,7 +48,7 @@ export default function App() {
     else
     return CompImg;
   }
-  const Menu = menuItems.map((item) => (
+  const Menu = menuItems1.map((item) => (
     <NavLink
       to={"/student/" + item}
       onClick={closeDrawer}
@@ -82,6 +84,15 @@ export default function App() {
   }
   const routes = [];
   for (var i = 0; i < menuItems.length; i++) {
+    if(menuItems[i]==="Notification")
+    {
+      routes.push({
+        path: "/student/",
+        name: menuItems[i],
+        Component: comps[i]
+      });
+    }
+    else
     routes.push({
       path: "/student/" + menuItems[i],
       name: menuItems[i],
