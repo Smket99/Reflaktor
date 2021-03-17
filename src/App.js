@@ -2,7 +2,8 @@ import './App.css';
 import React from 'react'
 import {useRef} from 'react'
 import {Link,BrowserRouter as Router} from 'react-router-dom';
-import Back from './back.svg'
+import Back from './back.svg';
+import HorizontalScroll from './HorizontalScroll'
 var delta=1;
 function App() {
     const containerRef = useRef(null)
@@ -12,9 +13,13 @@ function App() {
       alert("hello");
     }
   return (
-    <div onScrollDown={onScrollDown} ref={containerRef} style={{height:'100vh',overflowY:'hidden'}}>
-    <img src={Back} style={{height:'100vh'}}/>
+    <HorizontalScroll>
+    <div  style={{height:'100vh',overflowY:'hidden'}}>
+      
+        <img src={Back} style={{height:'100vh'}}/>
+      
     </div>
+    </HorizontalScroll>
   );
 }
 
