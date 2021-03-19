@@ -16,12 +16,31 @@ export default class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading:true,
       msg: "",
       isOpen: true,
       profileData:profData
     };
   }
   componentDidMount(){
+    const requestOptions = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({email:this.props.email})
+      };
+      fetch('http://localhost:4000/api/student/profile', requestOptions)
+      .then((res)=>{
+        const data=res.json()
+        for(const property in data.user){
+            profData[property]=data.user[property]
+          }
+      }).catch(error=>{
+        console.log(error)
+      })
+      this.setState({
+        loading:false,
+      })
+    
     let x=document.querySelectorAll(".form-inp");
     let temp=this.state.profileData;
     for(var i=2;i<x.length-1;i++)
@@ -30,7 +49,10 @@ export default class Profile extends React.Component {
       ele.value=temp[x[i].id];
       console.log(temp[x[i].id]);
     }
+
+   
   }
+    
   render() {
 
     const handleChange=(e)=>{
@@ -43,11 +65,26 @@ export default class Profile extends React.Component {
       setTimeout(()=>{
         document.getElementById('msg-suc').classList.remove("show-up");
       },3000);
-      console.log(this.state.profileData);
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(this.state.profileData)
+        };
+        fetch('http://localhost:4000/api/student/profile', requestOptions)
+        .then((res)=>{
+          console.log(res)
+        }).catch(error=>{
+          console.log(error)
+        })
     }
 
     return (
-      <div
+      <div>
+      {
+        this.state.loading?
+        <div>
+          Loading....
+        </div>:<div
         style={{
           color: "white",
           width: "100%",
@@ -132,6 +169,9 @@ export default class Profile extends React.Component {
                         <button onClick={()=>updateProfile()} style={{background:'dodgerblue',fontSize:'25px',color:'white',border:'none',outline:'none',padding:'4px 16px',borderRadius:'5px',cursor:'pointer',margin:'0.5em'}}>Update Profile</button>
                       </div>
                     </div>
-                  );
+
+      }
+      </div>
+    );
                 }
               }

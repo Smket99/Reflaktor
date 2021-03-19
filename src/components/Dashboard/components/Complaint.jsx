@@ -1,9 +1,33 @@
-import React from 'react'
+import React,{useState} from 'react'
 import './Complaint.css'
 import confirm from './Confirm.svg'
 export default function Complaint(){
 
+  const [defaultValue,setDefaultValue]=useState()
+  const [complaint,setComplaint]=useState('')
+  const onSelect=(e)=>{
+    setDefaultValue(e.target.value)
+  }
+  const handleChange=(e)=>{
+    setComplaint(e.target.value)
+  }
   const registerComplaint=()=>{
+    const studentComplaint={
+      issue:defaultValue,
+      complaint:complaint
+    }
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(studentComplaint)
+      };
+      fetch('http://localhost:4000/api/student/complaint', requestOptions)
+      .then((res)=>{
+        console.log(res)
+      }).catch(error=>{
+        console.log(error)
+      })
+    console.log(studentComplaint)
     document.getElementById('complaint-cont').classList.add("move-away");
     document.getElementById('success-msg').classList.add("move-in");
     document.getElementById('selector').value="Select";
@@ -20,7 +44,7 @@ export default function Complaint(){
           <b style={{fontSize:'200%'}}>Complaint</b>
         </div>
         <div id="complaint-cont" style={{zIndex:'1',height:'100%',width:'100%'}} className="basic">
-        <select id="selector">
+        <select id="selector" onChange={onSelect} value={defaultValue}>
           <option>Select</option>
           <option>Electrician</option>
           <option>Carpenter</option>
@@ -28,7 +52,13 @@ export default function Complaint(){
           <option>Plumber</option>
           <option>Warden</option>
         </select>
-        <textArea id="complaint" placeholder="Write your issue here......"></textArea>
+        <textArea
+         id="complaint" 
+         placeholder="Write your issue here......"
+         onChange={handleChange}
+         value={complaint}
+        
+        ></textArea>
         <button onClick={()=>registerComplaint()}>Submit</button>
         </div>
         <div id="success-msg" className="basic success-msg">
