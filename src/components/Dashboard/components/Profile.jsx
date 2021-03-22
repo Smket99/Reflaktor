@@ -23,27 +23,25 @@ export default class Profile extends React.Component {
     };
   }
   componentDidMount(){
-    const that = this;
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({email:"Smiket99@gmail.com"})
+      body: JSON.stringify({email:"Smiket@gmail.com"})
       };
       fetch('/api/student/profileData', requestOptions)
-      .then(response => response.json())
+      .then(response=>response.json())
       .then(data=>{
-        that.setState({
+        this.setState({
           profileData:data
         })
-      }).then(()=>{
-      console.log(this.state.profileData)
-      })
-      .catch(error=>{
+      }).catch(error=>{
         console.log(error)
       })
       this.setState({
         loading:false,
       })
+      console.log("ksjdlsdl");
+      console.log(this.state.profileData)
 
     let x=document.querySelectorAll(".form-inp");
     let temp=this.state.profileData;
@@ -125,14 +123,14 @@ export default class Profile extends React.Component {
               </div>
               <div style={{width:'80%'}}>
                 <div style={{margin:'0.5em',background:'white',position:'relative'}}>
-                  <input id="pnumber" onChange={handleChange} placeholder="Phone No." type="text" className="form-inp"/>
+                  <input value={this.state.profileData.pnumber} id="pnumber" onChange={handleChange} placeholder="Phone No." type="text" className="form-inp"/>
                   <div className="bottom-border"/ >
                   </div>
                 </div>
 
                 <div style={{width:'100%'}}>
                   <div style={{width:'80%',margin:'0.5em',background:'white',position:'relative'}}>
-                    <select id="hostel" className="form-inp" onChange={handleChange} style={{width:'100%'}}>
+                    <select value={this.state.profileData.hostel} id="hostel" className="form-inp" onChange={handleChange} style={{width:'100%'}}>
                       <option>Hostel</option>
                       <option>RAM</option>
                       <option>GANGA</option>
@@ -150,7 +148,7 @@ export default class Profile extends React.Component {
                   </div>
                   <div style={{width:'80%'}}>
                     <div style={{margin:'0.5em',background:'white',position:'relative'}}>
-                      <input id="address" onChange={handleChange}  placeholder="Address" type="text" className="form-inp"/>
+                      <input value={this.state.profileData.address} id="address" onChange={handleChange}  placeholder="Address" type="text" className="form-inp"/>
                       <div className="bottom-border"/ >
                       </div>
                     </div>
@@ -159,14 +157,14 @@ export default class Profile extends React.Component {
 
                     <div style={{width:'80%'}}>
                       <div style={{margin:'0.5em',background:'white',position:'relative'}}>
-                        <input id="roomno" onChange={handleChange} placeholder="Room No." type="text" className="form-inp"/>
+                        <input value={this.state.profileData.roomno} id="roomno" onChange={handleChange} placeholder="Room No." type="text" className="form-inp"/>
                         <div className="bottom-border"/ >
                         </div>
                       </div>
 
                       <div style={{width:'100%'}}>
                         <div style={{width:'80%',margin:'0.5em',background:'white',position:'relative'}}>
-                          <input onChange={handleChange} placeholder="NIL" style={{width:'100%'}}  type="date" className="form-inp"/>
+                          <input value={this.state.profileData.dob} onChange={handleChange} placeholder="NIL" style={{width:'100%'}}  type="date" className="form-inp"/>
                           <div className="bottom-border"/ >
                           </div>
                         </div>

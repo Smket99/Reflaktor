@@ -1,7 +1,7 @@
 var express = require('express');
 
 let profData={
-    name:"Sammy Asopa",
+    name:"Sammy ",
     id:'2018A7PS0101H',
     bmail:'f20180231@hyderabad.bits-pilani.ac.in',
     pnumber:'9926188556',
@@ -18,6 +18,7 @@ module.exports={
     },
     sendData:(req,res)=>{
         console.log(req.body);
+
         res.json(profData);
         res.send()
     }
