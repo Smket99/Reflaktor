@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import './Complaint.css'
 import confirm from './Confirm.svg'
-export default function Complaint(){
+export default function Complaint(props){
 
   const [defaultValue,setDefaultValue]=useState()
   const [complaint,setComplaint]=useState('')
@@ -21,7 +21,7 @@ export default function Complaint(){
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(studentComplaint)
       };
-      fetch('http://localhost:4000/api/student/complaint', requestOptions)
+      fetch('/api/student/complaint', requestOptions)
       .then((res)=>{
         console.log(res)
       }).catch(error=>{

@@ -29,6 +29,24 @@ export default class App extends React.Component{
       showFilters:false
     }
   }
+  componentDidMount(){
+    fetch('/api/student/history',{
+      method:'GET',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({email:this.props.email})
+    }).then(res=>{
+      if(res.ok){
+        return res.json
+      }
+    }).then(json=>{
+
+      this.setState({
+        data:json
+      })
+    }).catch(e=>{
+      console.log(e);
+    })
+  }
   render(){
     const markResolved=(id)=>{
       this.setState({CompId:id});
@@ -41,6 +59,17 @@ export default class App extends React.Component{
           break;
         }
       }
+      fetch('/api/student/history',{
+        method:'PATCH',
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+          },
+          body: JSON.stringify(this.state.data)
+      }).then(Response=>Response.json).then(json=>{
+        console.log(json)
+      }).catch(e=>{
+        console.log(e)
+      })
       this.setState({data:temp});
     }
     const toggleFilters=()=>{
@@ -78,7 +107,7 @@ export default class App extends React.Component{
       this.setState({data:temp});
     }
     const deleteComplaint=(id)=>{
-
+      
       this.setState({showModal:!this.state.showModal,CompId:id})
       window.location.href = "#modal";
     }

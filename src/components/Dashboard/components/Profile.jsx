@@ -28,12 +28,12 @@ export default class Profile extends React.Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({email:this.props.email})
       };
-      fetch('http://localhost:4000/api/student/profile', requestOptions)
+      fetch('/api/student/profile', requestOptions)
       .then((res)=>{
         const data=res.json()
-        for(const property in data.user){
-            profData[property]=data.user[property]
-          }
+        this.setState({
+          profData:data.user
+        })
       }).catch(error=>{
         console.log(error)
       })
