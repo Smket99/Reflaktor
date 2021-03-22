@@ -40,7 +40,7 @@ export default class Profile extends React.Component {
       this.setState({
         loading:false,
       })
-    
+
     let x=document.querySelectorAll(".form-inp");
     let temp=this.state.profileData;
     for(var i=2;i<x.length-1;i++)
@@ -50,9 +50,9 @@ export default class Profile extends React.Component {
       console.log(temp[x[i].id]);
     }
 
-   
+
   }
-    
+
   render() {
 
     const handleChange=(e)=>{
