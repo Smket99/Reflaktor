@@ -14,6 +14,7 @@ app.use(cors());
 
 app.post('/api/student/profile',StudentProfile.update)
 app.post('/api/student/complaint',StudentComplaint.update)
+app.post('/api/student/profileData',StudentProfile.sendData)
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

@@ -23,18 +23,22 @@ export default class Profile extends React.Component {
     };
   }
   componentDidMount(){
+    const that = this;
     const requestOptions = {
-      method: 'GET',
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({email:this.props.email})
+      body: JSON.stringify({email:"Smiket99@gmail.com"})
       };
-      fetch('/api/student/profile', requestOptions)
-      .then((res)=>{
-        const data=res.json()
-        this.setState({
-          profData:data.user
+      fetch('/api/student/profileData', requestOptions)
+      .then(response => response.json())
+      .then(data=>{
+        that.setState({
+          profileData:data
         })
-      }).catch(error=>{
+      }).then(()=>{
+      console.log(this.state.profileData)
+      })
+      .catch(error=>{
         console.log(error)
       })
       this.setState({
