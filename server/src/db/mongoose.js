@@ -4,7 +4,7 @@ const mongoose=require('mongoose')
     useNewUrlParser:true,
     useCreateIndex:true,
 })*/
-const URI = "";
+const URI = "mongodb+srv://dbUser:dbUser@cluster0.emvt7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const connectDB = async()=>{
     await mongoose.connect(URI,{useUnifiedTopology: true,useNewUrlParser: true});
     console.log('db connected');
