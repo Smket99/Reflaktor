@@ -56,15 +56,16 @@
   grid-template-areas:"item item item item";
 }
 .modal{
-  position: absolute;
-  background:#00000096;
-  width:100%;
-  min-height:100vh;
-  height:100%;
+  position: fixed;
+  background:#000000c3;
+  width:80%;
+  height:100vh;
+  /* height:100%; */
   z-index:900;
 }
 .modal-container{
   background: white;
+  position:relative;
   border-radius: 10px;
   width:50%;
   padding:1em 1em;

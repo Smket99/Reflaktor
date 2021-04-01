@@ -31,6 +31,11 @@ const studentSchema=mongoose.Schema({
     phone_number:{
         type:String,
         required:true,
+        validate(value){
+            if(value.length!=10){
+                throw new Error("Phone number must be of 10 digits")
+            }
+        },
         trim:true,
     },
     address:{
@@ -46,36 +51,13 @@ const studentSchema=mongoose.Schema({
         type:String,
         required:true,
         trim:true,
-    },
-    complaints:[{
-        complaint:{
-            department:{
-                type:String,
-                required:true,
-            },
-            issue:{
-                type:String,
-                trim:true,
-                required:true,
-            },
-            Date_of_filling:{
-                type:Date,
-                required:true,
-            },
-            Date_of_resolve:{
-                type:Date,
-            },
-            resolved:{
-                type:Boolean,
-                default:false,
-            },
-            rating:{
-                type:Number,
-            }
-        }
-    }]
+    }
+})
 
-
+studentSchema.virtual('complaints',{
+    ref:'Complaint',
+    localField:'_id',
+    foreignField:'studentID'
 })
 
 const Student=mongoose.model('student',studentSchema)

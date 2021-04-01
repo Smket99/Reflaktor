@@ -4,6 +4,7 @@ import {useRef} from 'react'
 import {Link,BrowserRouter as Router} from 'react-router-dom';
 import Back from './back.svg';
 import HorizontalScroll from './HorizontalScroll'
+
 var delta=1;
 function App() {
     // const containerRef = useRef(null)
@@ -19,6 +20,7 @@ function App() {
           <style>
           @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
           </style>
+      
     </div>
   );
 }

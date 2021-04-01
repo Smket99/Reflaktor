@@ -4,13 +4,12 @@ import sucess from './Success.svg'
 let profData={
   name:"Smiket Barodia",
   id:'2018A7PS0231H',
-  bmail:'f20180231@hyderabad.bits-pilani.ac.in',
+  email:'f20180231@hyderabad.bits-pilani.ac.in',
   pnumber:'9926188556',
   address:"11 Palsikar Colony",
   hostel:'RAM',
   roomno:'R437',
   dob:'adssa',
-  complaints:[],
 }
 export default class Profile extends React.Component {
   constructor(props) {
@@ -24,11 +23,10 @@ export default class Profile extends React.Component {
   }
   componentDidMount(){
     const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({email:"Smiket@gmail.com"})
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
       };
-      fetch('/api/student/profileData', requestOptions)
+      fetch('/students/'+this.props.userData.email, requestOptions)
       .then(response=>response.json())
       .then(data=>{
         this.setState({
@@ -56,7 +54,6 @@ export default class Profile extends React.Component {
   }
 
   render() {
-
     const handleChange=(e)=>{
       let temp=this.state.profileData;
       temp[e.target.id]=e.target.value;
@@ -68,11 +65,11 @@ export default class Profile extends React.Component {
         document.getElementById('msg-suc').classList.remove("show-up");
       },3000);
       const requestOptions = {
-        method: 'POST',
+        method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(this.state.profileData)
         };
-        fetch('http://localhost:4000/api/student/profile', requestOptions)
+        fetch('/students/me', requestOptions)
         .then((res)=>{
           console.log(res)
         }).catch(error=>{
@@ -110,20 +107,20 @@ export default class Profile extends React.Component {
         <div style={{width:'100%',background:'white'}}  className="profile-grid">
           <div style={{width:'80%'}}>
             <div style={{margin:'0.5em',background:'white',position:'relative'}}>
-              <input value={this.state.profileData.id} placeholder="NIL" type="text" className="form-inp"/>
+              <input value={this.state.profileData._id} placeholder="NIL" type="text" className="form-inp"/>
               <div className="bottom-border"/ >
               </div>
             </div>
 
             <div style={{width:'80%'}}>
               <div style={{margin:'0.5em',background:'white',position:'relative'}}>
-                <input value={this.state.profileData.bmail} disable placeholder="NIL" type="text" className="form-inp"/>
+                <input value={this.state.profileData.email} disable placeholder="NIL" type="text" className="form-inp"/>
                 <div className="bottom-border"/ >
                 </div>
               </div>
               <div style={{width:'80%'}}>
                 <div style={{margin:'0.5em',background:'white',position:'relative'}}>
-                  <input value={this.state.profileData.pnumber} id="pnumber" onChange={handleChange} placeholder="Phone No." type="text" className="form-inp"/>
+                  <input value={this.state.profileData.phone_number} id="phone_number" onChange={handleChange} placeholder="Phone No." type="text" className="form-inp"/>
                   <div className="bottom-border"/ >
                   </div>
                 </div>
@@ -157,7 +154,7 @@ export default class Profile extends React.Component {
 
                     <div style={{width:'80%'}}>
                       <div style={{margin:'0.5em',background:'white',position:'relative'}}>
-                        <input value={this.state.profileData.roomno} id="roomno" onChange={handleChange} placeholder="Room No." type="text" className="form-inp"/>
+                        <input value={this.state.profileData.room_no} id="roomno" onChange={handleChange} placeholder="Room No." type="text" className="form-inp"/>
                         <div className="bottom-border"/ >
                         </div>
                       </div>

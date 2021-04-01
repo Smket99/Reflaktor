@@ -3,7 +3,7 @@ import "./styles.css";
 import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import Report from "./components/Report";
-import Complaint from "../History/history";
+import Complaint from "./History/history";
 import Logout from "./components/Logout";
 import Notification from "./components/Notification";
 import LogImg from "./components/Logout.svg";

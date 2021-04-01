@@ -6,6 +6,7 @@ import Profile from "./components/Profile";
 import History from "../History/history";
 import Complaint from "./components/Complaint";
 import Logout from "./components/Logout";
+import history from '../../history'
 import Notification from "./components/Notification";
 import LogImg from "./components/Logout.svg";
 import ProfImg from "./components/Profile.svg";
@@ -18,7 +19,9 @@ const comps = [Profile,Complaint,History, Logout,Notification];
 const back = ".components/over-back.svg";
 var menuItems = ["Profile", "Complaint","History", "Logout","Notification"];
 var menuItems1=["Profile", "Complaint","History", "Logout"];
-export default function App() {
+export default function App(props) {
+  console.log("jksdldshl");
+  const {state}=history.location
   const [exp, setExp] = React.useState(false);
   const closeDrawer = () => {
     if (exp) {
@@ -183,7 +186,7 @@ export default function App() {
                   unmountOnExit
                   >
                   <div className="page">
-                    <Component />
+                    <Component userData={state}/>
                   </div>
                 </CSSTransition>
               )}

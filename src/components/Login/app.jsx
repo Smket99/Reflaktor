@@ -2,16 +2,11 @@ import React from 'react'
 import './styles.css'
 import './mob-styles.css'
 import GoogleLogin from "react-google-login";
+import history from '../../history'
 const backside = "./sidepan.svg";
 const overback = "./over-back1.svg";
-const responseGoogle = (response) => {
-  alert(response.profileObj.givenName)
-  document.querySelector(".form").classList.add("move-away");
-  document.querySelector(".sidepanel").classList.add("move-away2");
-  document.querySelector(".container").classList.add("move-away3");
-  document.querySelector(".app").classList.add("move-away");
-  setTimeout(()=>window.location.href="/student",3000);
-};
+// const history='../../history.js'
+
 export default class App extends React.Component{
   constructor(props) {
     super(props);
@@ -21,6 +16,20 @@ export default class App extends React.Component{
     };
   }
   render(){
+    const responseGoogle = (response) => {
+      console.log(response.profileObj)
+      document.querySelector(".form").classList.add("move-away");
+      document.querySelector(".sidepanel").classList.add("move-away2");
+      document.querySelector(".container").classList.add("move-away3");
+      document.querySelector(".app").classList.add("move-away");
+      const userData={
+            email: "f20180101@hyderabad.bits-pilani.ac.in",
+            imageUrl: "https://lh3.googleusercontent.com/a-/AOh14GgnQJaGhwiOLuyW8hcBdM5snOsgmeSVUaslM7e-=s96-c",
+            name: "SHUBHAM ASOPA"
+      }
+      this.props.setUserData(userData);
+      setTimeout(()=>history.push('/student',userData),3000);
+    };
     const toggle = () => {
       this.setState({ isStudent: !this.state.isStudent });
       document.getElementById("toggle-tabs").style.opacity = "1";

@@ -13,15 +13,16 @@ export default function Complaint(props){
   }
   const registerComplaint=()=>{
     const studentComplaint={
-      issue:defaultValue,
-      complaint:complaint
+      dept:defaultValue,
+      issue:complaint,
+      email:props.userData.email
     }
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(studentComplaint)
       };
-      fetch('/api/student/complaint', requestOptions)
+      fetch('/complaints', requestOptions)
       .then((res)=>{
         console.log(res)
       }).catch(error=>{

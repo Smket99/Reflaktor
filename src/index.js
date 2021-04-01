@@ -6,14 +6,10 @@ import Student from './components/Dashboard/App'
 import Admin from './components/Admin/App'
 import Login from './components/Login/app'
 import {BrowserRouter as Router, Route,NavLink} from 'react-router-dom'
+import Root from './Root';
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <Route  exact path="/" component={App}/>
-      <Route  path="/student" component={Student}/>
-      <Route  path="/admin" component={Admin}/>
-      <Route  path="/login" component={Login}/>
-    </Router>
+    <Root/>
   </React.StrictMode>,
   document.getElementById('root')
 );
