@@ -23,9 +23,9 @@ export default class App extends React.Component{
       document.querySelector(".container").classList.add("move-away3");
       document.querySelector(".app").classList.add("move-away");
       const userData={
-            email: "f20180101@hyderabad.bits-pilani.ac.in",
-            imageUrl: "https://lh3.googleusercontent.com/a-/AOh14GgnQJaGhwiOLuyW8hcBdM5snOsgmeSVUaslM7e-=s96-c",
-            name: "SHUBHAM ASOPA"
+            email: response.profileObj.email,
+            imageUrl:response.profileObj.imageUrl,
+            name:response.profileObj.givenName
       }
       this.props.setUserData(userData);
       setTimeout(()=>history.push('/student',userData),3000);

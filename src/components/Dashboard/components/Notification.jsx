@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react'
 import './Notification.css'
 export default function Notification(){
   const notifs=[
@@ -17,12 +17,25 @@ export default function Notification(){
     else
     return '#ffab22'
   }
+  const [notice,setNotice]=useState([]);
+  useEffect(()=>{
+    fetch('/notice',{
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
+      }).then(response=>response.json())
+      .then(data=>{
+        setNotice(data)
+        console.log(data)
+      }).catch(error=>{
+        console.log(error)
+      })
+  },[])
   return (
     <div  className="notification-container">
       <strong style={{fontFamily:'Abel',color:'#000',fontSize:'200%'}}>Notifications</strong>
       {
-        notifs.map((item)=>
-        <div   style={{background:getColor()}} className="notif-card">{item}</div>
+        notice.map((item)=>
+        <div   style={{background:getColor()}} className="notif-card">{item.notice}</div>
       )
     }
 

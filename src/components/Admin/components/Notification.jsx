@@ -12,22 +12,21 @@ export default function Complaint(props){
     setComplaint(e.target.value)
   }
   const registerComplaint=()=>{
-    const studentComplaint={
-      issue:defaultValue,
-      complaint:complaint
+    const notice={
+      notice:complaint,
     }
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(studentComplaint)
+      body: JSON.stringify(notice)
     };
-    fetch('/api/student/complaint', requestOptions)
+    fetch('/notice', requestOptions)
     .then((res)=>{
       console.log(res)
     }).catch(error=>{
       console.log(error)
     })
-    console.log(studentComplaint)
+    console.log(notice)
     document.getElementById('complaint-cont').classList.add("move-away");
     document.getElementById('success-msg').classList.add("move-in");
     document.getElementById('complaint').value="";
