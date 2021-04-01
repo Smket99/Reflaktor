@@ -43,7 +43,7 @@ export default function Complaint(props){
         <div className="basic topper">
           <b style={{fontSize:'200%'}}>Complaint</b>
         </div>
-        <div id="complaint-cont" style={{zIndex:'1',height:'100%',width:'100%'}} className="basic">
+        <div id="complaint-cont" style={{zIndex:'1',borderRadius:'5px',height:'100%',width:'100%'}} className="basic">
         <select id="selector" onChange={onSelect} value={defaultValue}>
           <option>Select</option>
           <option>Electrician</option>
@@ -53,11 +53,11 @@ export default function Complaint(props){
           <option>Warden</option>
         </select>
         <textArea
-         id="complaint" 
+         id="complaint"
          placeholder="Write your issue here......"
          onChange={handleChange}
          value={complaint}
-        
+
         ></textArea>
         <button onClick={()=>registerComplaint()}>Submit</button>
         </div>

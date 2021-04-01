@@ -104,7 +104,7 @@ export default function App() {
     <Router>
       <div className="dash-cont">
         <div className="basic dash-menu">
-          <img src={Logo1} width="90%" style={{position:'absolute',top:'1%',left:'2%'}}/>{Menu}</div>
+          <NavLink to="/student"><img src={Logo1} width="90%" style={{position:'absolute',top:'1%',left:'2%'}}/></NavLink>{Menu}</div>
         <div id="mob-menu" className="basic dash-menu-mob">
           <img src={Logo} width="90%" style={{position:'',top:'10%',left:'2%'}}/>
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import './Notification.css'
 export default function Notification(){
   const notifs=[
     "Notification 1",
@@ -7,18 +8,27 @@ export default function Notification(){
     "Notification 4",
     "Notification 5",
   ];
+  const getColor=()=>{
+    var x=parseInt(Math.floor(Math.random()*100000)%17);
+    if(x%3==0)
+    return '#0055ff'
+    else if(x%3==1)
+    return '#ff0251'
+    else
+    return '#ffab22'
+  }
   return (
-    <div style={{display:'flex',flexDirection:'column',alignItems:'center',background:"pink",width:'100%',height:'100vh'}}>
-      <h1>Notification Centre</h1>
-      <div style={{height:'50vh',display:'flex',flexDirection:'column',alignItems:'center',width:'70%'}}>
-        {notifs.map((item)=>
-            <div style={{margin:'1em',boxShadow:'0 4px 8px #00000056, 0 6px 20px 0 #00000056',paddingLeft:'0.5em',position:'relative',background:'white',width:'50%',minHeight:'20%'}}>
-              <div style={{background:'indianred',height:'100%',width:'0.4em',position:'absolute',left:'0px'}}></div>
-              {item}</div>
-          )
-      }
+    <div  className="notification-container">
+      <strong style={{fontFamily:'Abel',color:'#000',fontSize:'200%'}}>Notifications</strong>
+      {
+        notifs.map((item)=>
+        <div   style={{background:getColor()}} className="notif-card">{item}</div>
+      )
+    }
 
-      </div>
-    </div>
-  )
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Abel&display=swap');
+    </style>
+  </div>
+)
 }

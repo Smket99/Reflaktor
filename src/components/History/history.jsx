@@ -1,7 +1,7 @@
 import React from 'react'
-import './history2.css'
 import './history.css'
 import logData from './data'
+import Filter from './Filter.svg'
 import Plumber from "./Plumber.svg"
 import IT from "./IT.svg"
 import Carpenter from "./Carpenter.svg"
@@ -107,9 +107,15 @@ export default class App extends React.Component{
       this.setState({data:temp});
     }
     const deleteComplaint=(id)=>{
-      
+
+      var x=document.getElementById('cont')
+      if(x.style.overflow=="hidden")
+      x.style.overflow="auto"
+      else {
+        x.style.overflow="hidden"
+      }
       this.setState({showModal:!this.state.showModal,CompId:id})
-      window.location.href = "#modal";
+      // window.location.href = "#modal";
     }
     const Active=(info)=>{
       return (
@@ -157,25 +163,26 @@ export default class App extends React.Component{
       }
     }
     return (
-      <div style={{position:'relative',width:'100%'}}>
-        <nav className="basic nav" style={{background:'#212121',width:'100%',height:'3em'}}>
-          <button onClick={toggleFilters}>Filters</button>
-        </nav>
-        <div style={{paddingTop:'3em',overflow:'hidden',width:'100%',position:'relative',display:'flex'}}>
-
-          <div  className={this.state.showModal?"modal basic":"modal-hide"}>
-            <div  className="modal-container">
-              <h1 id="modal">
-                Do you really want to delete this Complaint?
-              </h1>
-              <button  onClick={del} className="button-yes">
-                Yes
-              </button>
-              <button onClick={deleteComplaint} className="button-no">
-                No
-              </button>
-            </div>
+      <div id="cont" style={{position:'relative',width:'100%',minHeight:'100vh'}}>
+        <div style={{height:'100vh'}}  className={this.state.showModal?"modal basic":"modal-hide "}>
+          <div  className="modal-container">
+            <h1 id="modal">
+              Do you really want to delete this Complaint?
+            </h1>
+            <button  onClick={del} className="button-yes">
+              Yes
+            </button>
+            <button onClick={deleteComplaint} className="button-no">
+              No
+            </button>
           </div>
+        </div>
+        <nav className="basic nav" style={{background:'#212121',width:'100%',height:'3em'}}>
+          <button style={{background:'none',border:'none',outline:'none',cursor:'pointer'}} onClick={toggleFilters}><img src={Filter} style={{height:'15%'}}/></button>
+        </nav>
+        <div style={{paddingTop:'3em',overflow:'hidden',width:'100%',position:'relative',display:'flex',minHeight:'calc(100vh - 3em)'}}>
+
+
 
 
           <table className="desktop-table">
