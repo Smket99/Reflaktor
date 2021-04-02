@@ -87,16 +87,16 @@ export default class App extends React.Component{
       const requestOptions = {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
-        };
-        fetch('/students/'+id, requestOptions)
-        .then(response=>response.json())
-        .then(data=>{
-          this.setState({
-            studentData:data
-          })
-        }).catch(error=>{
-          console.log(error)
+      };
+      fetch('/students/'+id, requestOptions)
+      .then(response=>response.json())
+      .then(data=>{
+        this.setState({
+          studentData:data
         })
+      }).catch(error=>{
+        console.log(error)
+      })
       var x=document.getElementById('cont')
       if(x.style.overflow=="hidden")
       x.style.overflow="auto"
@@ -113,11 +113,11 @@ export default class App extends React.Component{
           <td>
             {info.issue}
           </td>
-          <td>{info.Date}</td>
-          <td>  <div className="status active-log">{info.resolved?"Resolved":"Active"}</div></td>
-            <td className="basic">
-              <button id={info.email} onClick={deleteComplaint}>{info.email}</button>
-            </td>
+          <td>{info.date}</td>
+          <td>  <div style={{minWidth:'100%'}} className="status active-log">{info.resolved?"Resolved":"Active"}</div></td>
+          <td className="basic">
+            <button id={info.email} onClick={deleteComplaint}>{info.email}</button>
+          </td>
         </tr>
       )
     }
@@ -128,7 +128,7 @@ export default class App extends React.Component{
           <td>
             {info.issue}
           </td>
-          <td>{info.Date}</td>
+          <td>{info.date}</td>
           <td > <p className="status resolved-log">{info.resolved?"Resolved":"Active"}</p></td>
           <td className="basic">
             <button id={info.email} onClick={deleteComplaint}>{info.email}</button>
@@ -151,14 +151,20 @@ export default class App extends React.Component{
     }
     return (
       <div id="cont" style={{position:'relative',width:'100%',minHeight:'100vh'}}>
-        <div style={{height:'100vh',position:'relative'}}  className={this.state.showModal?"modal basic":"modal-hide "}>
-          <button onClick={deleteComplaint}>X</button>
-          <div  className="modal-container">
-            <p>StudentName-{this.state.studentData.name}</p>
-            <p>StudentID-{this.state.studentData._id}</p>
-            <p>StudentEmail-{this.state.studentData.email}</p>
-            <p>Room No.-{this.state.studentData.room_no}</p>
-            <p>Hostel-{this.state.studentData.hostel}</p>
+        <div style={{height:'100vh',position:'absolute'}}  className={this.state.showModal?"modal basic":"modal-hide "}>
+          <div className="modal-container">
+            <button style={{background:'indianred'}} onClick={deleteComplaint}>X</button>
+            <h1>Student Details</h1>
+            <div style={{fontSize:'150%',borderRadius:'10px',color:'#fff',background:'linear-gradient(to bottom,#642B73,#C6426E)',padding:'1em'}}>
+              <img style={{height:'50%',borderRadius:'50%'}} src={this.state.studentData.imageUrl}/>
+
+              <p><strong>Name: </strong>{this.state.studentData.name}</p>
+              <p><strong>ID: </strong>{this.state.studentData._id}</p>
+              <p><strong>Email: </strong>{this.state.studentData.email}</p>
+              <p><strong>Mob: </strong>{this.state.studentData.phone_number}</p>
+              <p><strong>Hostel: </strong>{this.state.studentData.hostel}</p>
+              <p><strong>Room No: </strong>{this.state.studentData.room_no}</p>
+            </div>
           </div>
         </div>
         <nav className="basic nav" style={{background:'#212121',width:'100%',height:'3em'}}>

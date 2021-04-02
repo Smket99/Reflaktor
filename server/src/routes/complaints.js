@@ -11,7 +11,9 @@ route.post('/complaints',async(req,res)=>{
         if(!student){
             return res.status(404).send({"Message":"The studentID doesn't exits"})
         }
-        const complaint=new Complaint(req.body)
+        var comp=req.body
+        comp["date"]=new Date().toLocaleString('en-US',{timeZone:"Asia/Kolkata"})
+        const complaint=new Complaint(comp)
         await complaint.save()
         res.status(202).send({"Message":"Complaints have been registered successfully"})
     }
@@ -20,6 +22,16 @@ route.post('/complaints',async(req,res)=>{
     }
 })
 
+route.get('/complaints',async(req,res)=>{
+    try{
+        const complaint=await Complaint.find({})
+        // console.log(complaint)
+        res.status(202).send(complaint)
+    }
+    catch(e){
+        res.status(505).send({"Message":"Error Encountered"})
+    }
+})
 route.get('/complaints/:id',async(req,res)=>{
     try{
         // console.log(req.params.id)
@@ -45,9 +57,9 @@ route.patch('/complaints/:id',async(req,res)=>{
         if(!complaint){
             return res.status(404).send({"Message":"Complaint not found"})
         }
-        
+
         const updates=Object.keys(req.body)
-        
+
         updates.forEach(update=>complaint[update]=req.body[update])
         await complaint.save()
 
@@ -65,7 +77,7 @@ route.delete('/complaints/:id',async(req,res)=>{
         if(!complaint){
             return res.status(404).send({"Message":"Complaint not found"})
         }
-        res.status(202).send({"Message":"Complaint deleted successfully"})    
+        res.status(202).send({"Message":"Complaint deleted successfully"})
     }
     catch(e){
         res.status(500).send({"Message":"Error encountered!"})

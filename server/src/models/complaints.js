@@ -23,9 +23,11 @@ const complaintSchema=mongoose.Schema({
         type:String,
         required:true,
         ref:'Student'
+    },
+    date:{
+      type:String,
+      required:true
     }
-},{
-    timestamps:true,
 })
 
 const Complaint=mongoose.model('complaint',complaintSchema)
