@@ -18,8 +18,8 @@ export default class App extends React.Component{
   render(){
     const responseGoogle = (response) => {
       console.log(response.profileObj)
-      document.querySelector(".form").classList.add("move-away");
-      document.querySelector(".sidepanel").classList.add("move-away2");
+      document.querySelector(this.state.isStudent?".form":".form2").classList.add("move-away");
+      document.querySelector(this.state.isStudent?".sidepanel":".sidepanel2").classList.add("move-away2");
       document.querySelector(".container").classList.add("move-away3");
       document.querySelector(".app").classList.add("move-away");
       const userData={
@@ -27,8 +27,10 @@ export default class App extends React.Component{
             imageUrl:response.profileObj.imageUrl,
             name:response.profileObj.givenName
       }
+      var user=this.state.isStudent?"Student":"Admin"
       this.props.setUserData(userData);
-      setTimeout(()=>history.push('/student',userData),3000);
+      window.localStorage.setItem(`curr${user}User`,JSON.stringify(userData))
+      setTimeout(()=>window.location.href=`/${user}`,3000);
     };
     const toggle = () => {
       this.setState({ isStudent: !this.state.isStudent });

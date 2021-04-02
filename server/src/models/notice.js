@@ -5,9 +5,11 @@ const noticeSchema=mongoose.Schema({
         type:String,
         required:true,
         trim:true,
+    },
+    date:{
+        type:String,
+        required:true,
     }
-},{
-    timestamps:true,
 })
 
 const Notice=mongoose.model('notice',noticeSchema)

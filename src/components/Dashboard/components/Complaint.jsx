@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import './Complaint.css'
 import confirm from './Confirm.svg'
 export default function Complaint(props){
-
+  var userData=JSON.parse(localStorage.getItem('currStudentUser'))
   const [defaultValue,setDefaultValue]=useState()
   const [complaint,setComplaint]=useState('')
   const onSelect=(e)=>{
@@ -15,7 +15,7 @@ export default function Complaint(props){
     const studentComplaint={
       dept:defaultValue,
       issue:complaint,
-      email:props.userData.email
+      email:userData.email
     }
     const requestOptions = {
       method: 'POST',

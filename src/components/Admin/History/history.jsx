@@ -97,7 +97,6 @@ export default class App extends React.Component{
         }).catch(error=>{
           console.log(error)
         })
-
       var x=document.getElementById('cont')
       if(x.style.overflow=="hidden")
       x.style.overflow="auto"

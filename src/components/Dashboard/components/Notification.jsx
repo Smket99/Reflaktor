@@ -22,20 +22,31 @@ export default function Notification(){
     fetch('/notice',{
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
-      }).then(response=>response.json())
-      .then(data=>{
-        setNotice(data)
-        console.log(data)
-      }).catch(error=>{
-        console.log(error)
-      })
+    }).then(response=>response.json())
+    .then(data=>{
+      data.sort((a, b) => {
+        let da = new Date(a.date),
+        db = new Date(b.date);
+        return db - da;
+      });
+      setNotice(data)
+      console.log(data)
+    }).catch(error=>{
+      console.log(error)
+    })
   },[])
   return (
     <div  className="notification-container">
-      <strong style={{fontFamily:'Abel',color:'#000',fontSize:'200%'}}>Notifications</strong>
+      <strong style={{fontFamily:'Abel',color:'#000',fontSize:'200%'}}>Notice</strong>
       {
         notice.map((item)=>
-        <div   style={{background:getColor()}} className="notif-card">{item.notice}</div>
+        <div style={{background:getColor(),position:'relative'}} className="notif-card">
+          {item.notice}
+          <div style={{position:'absolute',bottom:'5%',right:'3%',color:'white'}}>
+            {item.date}
+          </div>
+
+        </div>
       )
     }
 

@@ -6,7 +6,9 @@ const route=express.Router()
 route.post('/notice',async(req,res)=>{
   try{
     console.log(req.body)
-    const notice=new Notice(req.body)
+    var not=req.body
+    not["date"]=new Date().toLocaleString('en-US',{timeZone:"Asia/Kolkata"})
+    const notice=new Notice(not)
     console.log(req.body)
     await notice.save()
     console.log(req.body)

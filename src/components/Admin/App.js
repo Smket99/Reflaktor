@@ -11,12 +11,15 @@ import ProfImg from "./components/Report.svg";
 import CompImg from "./components/Complaint.svg";
 import Logo from './components/Logo.svg';
 import Logo1 from './components/Logo1.svg';
+import history from '../../history'
 const ham = "./components/Hamburger.svg";
 const comps = [Report,Complaint,Notification,Logout];
 const back = ".components/over-back.svg";
 var menuItems = ["Report", "Complaint","Notify","Logout"];
 var menuItems1 = ["Report", "Complaint","Notify","Logout"];
 export default function App() {
+  const {state}=history.location
+  console.log(state);
   const [exp, setExp] = React.useState(false);
   const closeDrawer = () => {
     if (exp) {
@@ -170,7 +173,7 @@ export default function App() {
                     unmountOnExit
                     >
                     <div className="page">
-                      <Component />
+                      <Component userData={state}/>
                     </div>
                   </CSSTransition>
                 )}

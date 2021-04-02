@@ -30,7 +30,8 @@ export default class App extends React.Component{
     }
   }
   componentDidMount(){
-    fetch(`/complaints/${this.props.userData.email}`,{
+    var userData=JSON.parse(localStorage.getItem('currStudentUser'))
+    fetch(`/complaints/${userData.email}`,{
       method:'GET',
       headers: { 'Content-Type': 'application/json' },
       // body: JSON.stringify({email:this.props.email})
@@ -82,7 +83,7 @@ export default class App extends React.Component{
     }
     const del=()=>{
       var temp=this.state.data
-      
+
       for(var i=0;i<temp.length;i++)
       {
         if(temp[i]!=null&&temp[i]._id===this.state.CompId)
@@ -103,7 +104,7 @@ export default class App extends React.Component{
           "Content-Type":'application/json; charset=UTF-8',
         }
       }).then(res=>res.json()).then(json=>console.log(json)).catch(e=>console.log(e))
-      
+
     }
     const filterStatus=()=>{
       // this.setState({data:logData})

@@ -20,7 +20,6 @@ const back = ".components/over-back.svg";
 var menuItems = ["Profile", "Complaint","History", "Logout","Notification"];
 var menuItems1=["Profile", "Complaint","History", "Logout"];
 export default function App(props) {
-  console.log("jksdldshl");
   const {state}=history.location
   const [exp, setExp] = React.useState(false);
   const closeDrawer = () => {
