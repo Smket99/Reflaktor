@@ -1,3 +1,4 @@
+console.log(require('dotenv').config())
 require('./src/db/mongoose')
 const express=require('express')
 const studentRouter=require('./src/routes/student')
@@ -5,7 +6,7 @@ const complaintRouter=require('./src/routes/complaints')
 const noticeRouter=require('./src/routes/notice')
 const app=express()
 const path=require('path')
-const port=process.env.PORT || 4000
+const port=process.env.PORT
 
 // const connectDB = require('./src/db/mongoose');
 // connectDB();
