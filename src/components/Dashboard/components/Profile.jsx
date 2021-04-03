@@ -155,14 +155,14 @@ export default class Profile extends React.Component {
 
                       <div style={{width:'80%'}}>
                         <div style={{margin:'0.5em',background:'white',position:'relative'}}>
-                          <input value={this.state.profileData.room_no} id="roomno" onChange={handleChange} placeholder="Room No." type="text" className="form-inp"/>
+                          <input deafaultValue={this.state.profileData.room_no} id="roomno" onChange={handleChange} placeholder="Room No." type="text" className="form-inp"/>
                           <div className="bottom-border"/ >
                           </div>
                         </div>
 
                         <div style={{width:'100%'}}>
                           <div style={{width:'80%',margin:'0.5em',background:'white',position:'relative'}}>
-                            <input id="dob" defaultValue={this.state.profileData.dob} onChange={handleChange}  style={{width:'100%'}}  type="date" className="form-inp"/>
+                            <input id="dob" defaultValue={Date.parse(this.state.profileData.dob)} onChange={handleChange}  style={{width:'100%'}}  type="date" className="form-inp"/>
                             <div className="bottom-border"/ >
                             </div>
                           </div>

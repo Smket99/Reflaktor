@@ -129,7 +129,7 @@ export default class App extends React.Component{
             {info.issue}
           </td>
           <td>{info.date}</td>
-          <td > <p className="status resolved-log">{info.resolved?"Resolved":"Active"}</p></td>
+          <td > <p style={{minWidth:'100%'}} className="status resolved-log">{info.resolved?"Resolved":"Active"}</p></td>
           <td className="basic">
             <button id={info.email} onClick={deleteComplaint}>{info.email}</button>
           </td>

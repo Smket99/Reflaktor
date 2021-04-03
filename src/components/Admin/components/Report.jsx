@@ -180,7 +180,7 @@ export default function Report(){
   }
   const comp3=(
     <div id="report-pdf" className="report-pdf">
-      <div className="report-topper">Report<b>{month}</b></div>
+      <div className="report-topper">Report</div>
       <div  className="report-content">
         <div className="complaint over-all">
           <Bar
@@ -199,7 +199,7 @@ export default function Report(){
     </div>
   )
   const comp2=(<div  className="report">
-  <div className="report-topper">Report <b>{month}</b></div>
+  <div className="report-topper">Report</div>
   <div  className="report-content">
     <div className="complaint over-all">
       <Bar
