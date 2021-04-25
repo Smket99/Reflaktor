@@ -19,6 +19,7 @@ function Image(x)
     return Carpenter;
   }
 }
+var userData = JSON.parse(localStorage.getItem('currStudentUser'))
 export default class App extends React.Component{
   constructor(props){
     super(props);
@@ -28,12 +29,13 @@ export default class App extends React.Component{
       data:logData,
       data2:logData,
       showFilters:false,
-      modalContent:<div>Content</div>
+      modalContent:<div>Content</div>,
+      page_no:1,
     }
   }
   componentDidMount(){
-    var userData=JSON.parse(localStorage.getItem('currStudentUser'))
-    fetch(`/complaints/${userData.email}`,{
+    
+    fetch(`/complaints/${userData.email}?page=${this.state.page_no}&limit=${10}`,{
       method:'GET',
       headers: { 'Content-Type': 'application/json' },
       // body: JSON.stringify({email:this.props.email})
@@ -179,6 +181,33 @@ export default class App extends React.Component{
     const toggleFilters=()=>{
       this.setState({showFilter:!this.state.showFilter});
     }
+
+    const handlePageChange=(e)=>{
+      const num=e.target.id==="next"?1:-1;
+      const temp=this.state.page_no;
+      this.setState({page_no:temp+num});
+      fetch(`/complaints/${userData.email}?page=${this.state.page_no+num}&limit=${10}`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+        // body: JSON.stringify({email:this.props.email})
+      }).then(res => {
+        if (res.ok) {
+          return res.json()
+        }
+      }).then(json => {
+        console.log(json);
+        this.setState({
+          data2: json
+        })
+        this.setState({
+          data: json
+        })
+      }).catch(e => {
+        console.log(e);
+      })
+    }
+
+
     const del=()=>{
       var temp=this.state.data
 
@@ -326,6 +355,11 @@ export default class App extends React.Component{
             </div>
           </div>
         </div>
+        <div>
+          <button id="prev" onClick={handlePageChange} style={{ margin: "20px",display:this.state.page_no===1?"none":"" , width:"150px", height:"50px", border: 'none', outline: 'none', cursor: 'pointer' }} className="button-yes">Prev</button>
+          <button id="next" onClick={handlePageChange} style={{ margin: "20px", display: this.state.data.length < 10 ? "none" : "", marginLeft:"60em", width: "150px", height: "50px", border: 'none', outline: 'none', cursor: 'pointer' }}className="button-yes">Next</button>
+        </div>
+        
       </div>
     )
   }

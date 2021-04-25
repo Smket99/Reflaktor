@@ -12,7 +12,7 @@ export default class App extends React.Component{
     super(props);
     this.state = {
       isStudent: true,
-      loginErr: "",
+      loginErr: ""
     };
   }
   render(){
@@ -31,6 +31,24 @@ export default class App extends React.Component{
         imageUrl:response.profileObj.imageUrl,
         name:response.profileObj.givenName
       }
+
+        const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(userData)
+        };
+        fetch('/students/' + userData.email, requestOptions)
+          .then(response => response.json())
+          .then(data => {
+            this.setState({
+              profileData: data
+            })
+            console.log(data);
+          }).catch(error => {
+            console.log(error)
+          })
+
+
       var user=this.state.isStudent?"Student":"Admin"
       this.props.setUserData(userData);
       window.localStorage.setItem(`curr${user}User`,JSON.stringify(userData))

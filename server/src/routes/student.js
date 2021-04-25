@@ -7,13 +7,16 @@ route.post('/students/:id',async(req,res)=>{
     try{
         console.log(req.params.id)
         const student=await Student.findOne({email:req.params.id})
-        console.log(student)
-        if(!student){
-            const student1=new Student(req.body)
-            await student1.save()
-            return res.status(202).send(student1)
+        if(student){
+            res.status(202).send({"Message":"Logging in"});
+            return;
         }
-        res.status(202).send(student)
+        console.log("JJ")
+        const student1=new Student(req.body)
+        console.log(student1);
+        await student1.save()
+        return res.status(202).send(student1)
+        // res.status(202).send(student)
     }
     catch(e){
         res.status(404).send({"Message":"Failed"})

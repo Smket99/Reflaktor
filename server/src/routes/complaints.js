@@ -3,6 +3,9 @@ const Complaint=require('../models/complaints')
 const Student = require('../models/student')
 const route=express.Router()
 
+
+const data=require('./Complaint_Data');
+
 route.post('/complaints',async(req,res)=>{
     try{
         console.log("HEkko")
@@ -22,9 +25,51 @@ route.post('/complaints',async(req,res)=>{
     }
 })
 
+
+
+route.post('/compla',async(req,res)=>{
+    try{
+        const emails=["f20180101@hyderabad.bits-pilani.ac.in","f20180231@hyderabad.bits-pilani.ac.in","f20180323@hyderabad.bits-pilani.ac.in","f20180187@hyderabad.bits-pilani.ac.in","f20180168@hyderabad.bits-pilani.ac.in"]
+        for (let i = 0; i < data.length; i++) {
+            console.log(i);
+            var obj={};
+            if(i%5<2){
+                 obj = {
+                    email: emails[i % 5],
+                    dept: data[i].dept,
+                    date: new Date(data[i].date).toLocaleString('en-US', { timeZone: "Asia/Kolkata" }),
+                    resolved: false,
+                    issue: data[i].issue,
+                }
+            }
+            else{
+                 obj = {
+                    email: emails[i % 5],
+                    dept: data[i].dept,
+                    date: new Date(data[i].date).toLocaleString('en-US', { timeZone: "Asia/Kolkata" }),
+                    resolved: true,
+                    issue: data[i].issue,
+                    dateResolved: new Date(data[i].dateResolve).toLocaleString('en-US', { timeZone: "Asia/Kolkata" }),
+                    rating: i % 5
+                }
+            }
+            const complaint=new Complaint(obj);
+            await complaint.save();
+        }
+        res.send("Nothing");
+    }
+    catch(e){
+        console.log(e);
+        res.send("Nothing");
+    }
+    
+})
+
+
 route.get('/complaints',async(req,res)=>{
     try{
-        const complaint=await Complaint.find({})
+        const { page = 1, limit = 10 } = req.query
+        const complaint = await Complaint.find({}).limit(limit * 1).skip((page - 1) * limit)
         // console.log(complaint)
         res.status(202).send(complaint)
     }
@@ -32,16 +77,24 @@ route.get('/complaints',async(req,res)=>{
         res.status(505).send({"Message":"Error Encountered"})
     }
 })
+
+
 route.get('/complaints/:id',async(req,res)=>{
     try{
         // console.log(req.params.id)
-        const complaints=await Complaint.find({email:req.params.id})
+        const {page=1,limit=10}=req.query
+        if(page===1){
+            const count=await Complaint.count({email:req.params.id})
+            const complaints = await Complaint.find({ email: req.params.id }).limit(limit * 1).skip((page - 1) * limit)
+            return res.status(202).send({count:count,complaints:complaints});
+        }
+        const complaints=await Complaint.find({email:req.params.id}).limit(limit*1).skip((page-1)*limit)
         // console.log(complaints)
         if(!complaints){
             return res.status(404).send({"Message":"There's no student with this id"})
         }
         // console.log("jksds")
-        res.status(202).send(complaints)
+        res.status(202).send({complaints:complaints})
     }
     catch(e){
         res.status(502).send({"Message":"Error Encountered"})

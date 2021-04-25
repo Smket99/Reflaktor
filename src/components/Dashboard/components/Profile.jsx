@@ -19,22 +19,30 @@ export default class Profile extends React.Component {
       loading:true,
       msg: "",
       isOpen: true,
-      profileData:profData
+      profileData:{
+        id: '',
+        phone_number:"",
+        dob: new Date(),
+        hostel: '',
+        address: "",
+        room_no:"",
+      }
     };
   }
   componentDidMount(){
 
     const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:JSON.stringify(userData)
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
     };
     fetch('/students/'+userData.email, requestOptions)
     .then(response=>response.json())
     .then(data=>{
       this.setState({
         profileData:data
-      },()=>{console.log(this.state.profileData)})
+      })
+      console.log("hello");
+      console.log(data);
     }).catch(error=>{
       console.log(error)
     })
@@ -60,7 +68,7 @@ export default class Profile extends React.Component {
     const handleChange=(e)=>{
       let temp=this.state.profileData;
       temp[e.target.id]=e.target.value;
-      this.setState({profileData:temp},()=>console.log(this.state.profileData));
+      this.setState({profileData:temp});
     }
     const updateProfile=()=>{
       document.getElementById('msg-suc').classList.add("show-up");
@@ -164,7 +172,7 @@ export default class Profile extends React.Component {
 
                         <div style={{width:'100%'}}>
                           <div style={{width:'80%',margin:'0.5em',background:'white',position:'relative'}}>
-                            <input id="dob" defaultValue={Date.parse(this.state.profileData.dob)} onChange={handleChange}  style={{width:'100%'}}  type="date" className="form-inp"/>
+                            <input value={this.state.profileData.dob} id="dob" defaultValue={this.state.profileData.dob} onChange={handleChange}  style={{width:'100%'}}  type="date" className="form-inp"/>
                             <div className="bottom-border"/ >
                             </div>
                           </div>

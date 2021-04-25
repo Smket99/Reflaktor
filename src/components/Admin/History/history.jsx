@@ -40,7 +40,8 @@ export default class App extends React.Component{
         address:"",
         hostel:"",
         dob:new Date()
-      }
+      },
+      page_no:1,
     }
   }
   componentDidMount(){
@@ -63,9 +64,35 @@ export default class App extends React.Component{
       console.log(e);
     })
   }
+  
   render(){
     const toggleFilters=()=>{
       this.setState({showFilter:!this.state.showFilter});
+    }
+
+    const handlePageChange = (e) => {
+      const num = e.target.id === "next" ? 1 : -1;
+      const temp = this.state.page_no;
+      this.setState({ page_no: temp + num });
+      fetch(`/complaints?page=${this.state.page_no + num}&limit=${10}`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+        // body: JSON.stringify({email:this.props.email})
+      }).then(res => {
+        if (res.ok) {
+          return res.json()
+        }
+      }).then(json => {
+        console.log(json);
+        this.setState({
+          data2: json
+        })
+        this.setState({
+          data: json
+        })
+      }).catch(e => {
+        console.log(e);
+      })
     }
 
     const filterStatus=()=>{
@@ -217,6 +244,10 @@ export default class App extends React.Component{
               </select>
             </div>
           </div>
+        </div>
+        <div>
+          <button id="prev" onClick={handlePageChange} style={{ margin: "20px", display: this.state.page_no === 1 ? "none" : "", width: "150px", height: "50px", border: 'none', outline: 'none', cursor: 'pointer' }} className="button-yes">Prev</button>
+          <button id="next" onClick={handlePageChange} style={{ margin: "20px", marginLeft: "60em", display: this.state.data.length < 10 ? "none" : "", width: "150px", height: "50px", border: 'none', outline: 'none', cursor: 'pointer' }} className="button-yes">Next</button>
         </div>
       </div>
     )
