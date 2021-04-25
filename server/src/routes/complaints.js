@@ -58,9 +58,15 @@ route.patch('/complaints/:id',async(req,res)=>{
             return res.status(404).send({"Message":"Complaint not found"})
         }
 
-        const updates=Object.keys(req.body)
-
-        updates.forEach(update=>complaint[update]=req.body[update])
+        if(req.body.rating!=='0'){
+            complaint.rating=parseInt(req.body.rating);
+        }
+        if(req.body.comment!==""){
+            complaint.comment=req.body.comment
+        }
+        
+        complaint.dateResolved=req.body.dateResolved
+        complaint.resolved=true;
         await complaint.save()
 
         console.log(complaint)

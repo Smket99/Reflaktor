@@ -1,8 +1,13 @@
 {
   "files": {
     "main.css": "/static/css/main.1600e98e.chunk.css",
+<<<<<<< HEAD
     "main.js": "/static/js/main.8a99d1ce.chunk.js",
     "main.js.map": "/static/js/main.8a99d1ce.chunk.js.map",
+=======
+    "main.js": "/static/js/main.53b3ba8c.chunk.js",
+    "main.js.map": "/static/js/main.53b3ba8c.chunk.js.map",
+>>>>>>> a5ef06e7e6e84d2c3bb9491abdf0eeb5123c3580
     "runtime-main.js": "/static/js/runtime-main.24025600.js",
     "runtime-main.js.map": "/static/js/runtime-main.24025600.js.map",
     "static/js/2.00c824aa.chunk.js": "/static/js/2.00c824aa.chunk.js",
@@ -32,7 +37,7 @@
     "static/media/Report1.450f4e89.svg": "/static/media/Report1.450f4e89.svg",
     "static/media/Success.ccfd12b5.svg": "/static/media/Success.ccfd12b5.svg",
     "static/media/arrow.28131530.svg": "/static/media/arrow.28131530.svg",
-    "static/media/back.bef84216.svg": "/static/media/back.bef84216.svg",
+    "static/media/back.538785c1.svg": "/static/media/back.538785c1.svg",
     "static/media/mob-styles.css": "/static/media/mobback2.aa8f3353.svg",
     "static/media/styles.css": "/static/media/sidepan2.d0925697.svg"
   },
@@ -40,6 +45,10 @@
     "static/js/runtime-main.24025600.js",
     "static/js/3.a5a2de80.chunk.js",
     "static/css/main.1600e98e.chunk.css",
+<<<<<<< HEAD
     "static/js/main.8a99d1ce.chunk.js"
+=======
+    "static/js/main.53b3ba8c.chunk.js"
+>>>>>>> a5ef06e7e6e84d2c3bb9491abdf0eeb5123c3580
   ]
 }

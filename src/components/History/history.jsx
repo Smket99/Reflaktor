@@ -6,6 +6,7 @@ import Plumber from "./Plumber.svg"
 import IT from "./IT.svg"
 import Carpenter from "./Carpenter.svg"
 import Electrician from "./Electrician.svg"
+import { FaStar } from 'react-icons/fa'
 function Image(x)
 {
   if(x==="Plumber")
@@ -14,7 +15,7 @@ function Image(x)
   return IT;
   else if(x==="Electrician")
   return Electrician;
-  else {
+  else{
     return Carpenter;
   }
 }
@@ -25,8 +26,9 @@ export default class App extends React.Component{
       showModal:false,
       CompId:"none",
       data:logData,
-      value:"All",
-      showFilters:false
+      data2:logData,
+      showFilters:false,
+      modalContent:<div>Content</div>
     }
   }
   componentDidMount(){
@@ -40,8 +42,10 @@ export default class App extends React.Component{
         return res.json()
       }
     }).then(json=>{
-      // console.log("Lion")
-      // console.log(json)
+      console.log(json);
+      this.setState({
+        data2:json
+      })
       this.setState({
         data:json
       })
@@ -50,34 +54,128 @@ export default class App extends React.Component{
     })
   }
   render(){
-    const markResolved=(id)=>{
-      this.setState({CompId:id});
-      var temp=this.state.data;
-      for(var i=0;i<temp.length;i++)
-      {
-        if(temp[i]!=null&&temp[i]._id==id)
-        {
-          temp[i].resolved=true
-          break;
-        }
+    const comp1=()=>{
+    return (
+      <div  className="modal-container">
+        <h1 id="modal">
+          Do you really want to delete this Complaint?
+        </h1>
+        <button  onClick={del} className="button-yes">
+          Yes
+        </button>
+        <button onClick={deleteComplaint} className="button-no">
+          No
+        </button>
+      </div>
+
+    )
+    }
+    const comp2=(id)=>{
+      const handleModalClose=()=>{
+        this.setState({showModal:false});
+      }
+      return (
+        <div  className="modal-container">
+          <h1>Feedback Component</h1>
+          <Feedback id={id} handleModalClose={handleModalClose}/>
+          <button onClick={deleteComplaint} className="button-no">
+            Cancel
+          </button>
+        </div>
+      )
+    }
+
+
+    const Feedback = ({id,handleModalClose}) => {
+      const [rating, setRating] = React.useState(null);
+      const [comment, setComment] = React.useState("");
+
+      const handleRating = (e) => {
+        setRating(e.target.value);
+      }
+      const handleFeedbackSubmit = (e) => {
+        const today = new Date().toLocaleString('en-US', { timeZone: "Asia/Kolkata" });
+        const requestOptions = {
+          method: 'PATCH',
+          headers:
+          {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ rating: rating, comment: comment, resolved: true , id: id, dateResolved:today })
+        };
+        fetch(`/complaints/${id}`, requestOptions)
+          .then(response => response.json())
+          .then(data => {
+            handleModalClose();
+          })
+      }
+      const handleOnChange = (e) => {
+        setComment(e.target.value)
       }
 
-      fetch('/complaints/'+id,{
-        method:'PATCH',
-        headers: {
-          "Content-type": "application/json; charset=UTF-8"
-          },
-          body: JSON.stringify({
-            resolved:true,
-          })
-      }).then(Response=>Response.json()).then(json=>{
-        console.log("jksdsdl")
-        console.log(json)
-      }).catch(e=>{
-        console.log(e)
-      })
-      this.setState({data:temp});
+      return (
+        <div style={{ width: '60%', flexDirection: 'row', justifyContent: 'space-evenly' }} className="modal-container basic">
+          <div style={{ justifyContent: 'space-evenly', height: '90%' }} className="basic">
+            <textarea value={comment} onChange={handleOnChange} placeholder="Describe your experience (optional)" style={{ width: "300px", height: "120px", resize: "none" }}></textarea>
+            <div style={{ margin: "1em", display: "flex", justifyContent: "center", alignItems: "center", width: '100%' }} >
+              <label>
+                <input type='radio' name="rating" value="1" style={{ display: "none" }} onClick={handleRating} />
+                <FaStar size={25} value="1star" color={rating >= "1" ? "#f5bc42" : "grey"} />
+              </label>
+              <label>
+                <input type='radio' name="rating" value="2" style={{ display: "none" }} onClick={handleRating} />
+                <FaStar size={25} value="2star" color={rating >= "2" ? "#f5bc42" : "grey"} />
+              </label>
+              <label>
+                <input type='radio' name="rating" value="3" style={{ display: "none" }} onClick={handleRating} />
+                <FaStar size={25} value="3star" color={rating >= "3" ? "#f5bc42" : "grey"} />
+              </label>
+              <label>
+                <input type='radio' name="rating" value="4" style={{ display: "none" }} onClick={handleRating} />
+                <FaStar size={25} value="4star" color={rating >= "4" ? "#f5bc42" : "grey"} />
+              </label>
+              <label>
+                <input type='radio' name="rating" value="5" style={{ display: "none" }} onClick={handleRating} />
+                <FaStar size={25} value="5star" color={rating >= "5" ? "#f5bc42" : "grey"} />
+              </label>
+            </div>
+            <button onClick={handleFeedbackSubmit} style={{background:"dodgerblue"}} className="button-no" variant="contained">Submit</button>
+          </div>
+        </div>
+      )
     }
+
+
+
+
+
+    // const markResolved=(id)=>{
+    //   this.setState({CompId:id});
+    //   var temp=this.state.data;
+    //   for(var i=0;i<temp.length;i++)
+    //   {
+    //     if(temp[i]!=null&&temp[i]._id==id)
+    //     {
+    //       temp[i].resolved=true
+    //       break;
+    //     }
+    //   }
+
+    //   fetch('/complaints/'+id,{
+    //     method:'PATCH',
+    //     headers: {
+    //       "Content-type": "application/json; charset=UTF-8"
+    //     },
+    //     body: JSON.stringify({
+    //       resolved:true,
+    //     })
+    //   }).then(Response=>Response.json()).then(json=>{
+    //     console.log(json)
+    //   }).catch(e=>{
+    //     console.log(e)
+    //   })
+    //   this.setState({data:temp});
+    // }
     const toggleFilters=()=>{
       this.setState({showFilter:!this.state.showFilter});
     }
@@ -95,7 +193,6 @@ export default class App extends React.Component{
 
       this.setState({data:temp});
       this.setState({showModal:!this.state.showModal})
-      console.log("jkdsl");
       console.log(this.state.data);
 
       fetch('/complaints/'+this.state.CompId,{
@@ -107,23 +204,23 @@ export default class App extends React.Component{
 
     }
     const filterStatus=()=>{
-      // this.setState({data:logData})
+      this.setState({data:this.state.data2})
       let    x=document.getElementById("filter-stat").value
       let    y=document.getElementById("filter-dep").value
-      var temp=this.state.data;
-      for(var i=0;i<this.state.data.length;i++)
-      {
-        var xx=false
-        if(x.toLowerCase()==="resolved")xx=true
-        if((this.state.data[i]!=undefined)&&(this.state.data[i].resolved===xx||x==="All")&&(this.state.data[i].dept===y||y==="All"))
+      var temp=[]
+      var xx=false
+      if(x==="Resolved")
+      xx=true;
+      for(var i=0;i<this.state.data2.length;i++){
+        if((this.state.data2[i].resolved===xx||x==="All")&&(this.state.data2[i].dept===y||y==="All"))
         {
-          temp[i]=this.state.data[i];
+          temp[i]=this.state.data2[i]
         }
-        else {
-          temp[i]=null;
+        else{
+          temp[i]=null
         }
       }
-      this.setState({data:temp});
+      this.setState({data:temp})
     }
     const deleteComplaint=(id)=>{
       var x=document.getElementById('cont')
@@ -132,8 +229,7 @@ export default class App extends React.Component{
       else {
         x.style.overflow="hidden"
       }
-      this.setState({showModal:!this.state.showModal,CompId:id})
-      // window.location.href = "#modal";
+      this.setState({modalContent:comp1(),showModal:!this.state.showModal,CompId:id})
     }
     const Active=(info)=>{
       return (
@@ -142,12 +238,12 @@ export default class App extends React.Component{
           <td>
             {info.issue}
           </td>
-          <td>{info.Date}</td>
+          <td>{info.date}</td>
           <td>  <div className="status active-log">{info.resolved?"Resolved":"Active"}</div></td>
-            <td className="basic">
-              <button onClick={()=>deleteComplaint(info._id)}>Delete</button>
-              <button id="done-but" onClick={()=>markResolved(info._id)}>Resolve</button>
-            </td>
+          <td className="basic">
+            <button style={{display:info.resolved?"none":"block"}} onClick={()=>deleteComplaint(info._id)}>Delete</button>
+            <button id="done-but" onClick={()=>this.setState({modalContent:comp2(info._id),showModal:true})}>Resolve</button>
+          </td>
         </tr>
       )
     }
@@ -158,13 +254,12 @@ export default class App extends React.Component{
           <td>
             {info.issue}
           </td>
-          <td>{info.Date}</td>
+          <td>{info.date}</td>
           <td> <p className="status resolved-log">{info.resolved?"Resolved":"Active"}</p></td>
           <td className="basic">
-            <button onClick={()=>deleteComplaint(info._id)}>Delete</button>
-            <button disabled id="done-but" onClick={()=>markResolved(info._id)}>Resolve</button>
+            <button style={{display:info.resolved?"none":"block"}} onClick={()=>deleteComplaint(info._id)}>Delete</button>
+            <button disabled id="done-but" >Resolve</button>
           </td>
-
         </tr>
       )
     }
@@ -180,20 +275,12 @@ export default class App extends React.Component{
         }
       }
     }
+
     return (
       <div id="cont" style={{position:'relative',width:'100%',minHeight:'100vh'}}>
         <div style={{height:'100vh'}}  className={this.state.showModal?"modal basic":"modal-hide "}>
-          <div  className="modal-container">
-            <h1 id="modal">
-              Do you really want to delete this Complaint?
-            </h1>
-            <button  onClick={del} className="button-yes">
-              Yes
-            </button>
-            <button onClick={deleteComplaint} className="button-no">
-              No
-            </button>
-          </div>
+          {this.state.modalContent}
+
         </div>
         <nav className="basic nav" style={{background:'#212121',width:'100%',height:'3em'}}>
           <button style={{background:'none',border:'none',outline:'none',cursor:'pointer'}} onClick={toggleFilters}><img src={Filter} style={{height:'15%'}}/></button>

@@ -1,4 +1,4 @@
-console.log(require('dotenv').config())
+require('dotenv').config()
 require('./src/db/mongoose')
 const express=require('express')
 const studentRouter=require('./src/routes/student')

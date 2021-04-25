@@ -27,6 +27,12 @@ const complaintSchema=mongoose.Schema({
     date:{
       type:String,
       required:true
+    },
+    dateResolved:{
+        type:String,
+    },
+    comment:{
+        type:String,
     }
 })
 

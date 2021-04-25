@@ -2,7 +2,7 @@ const mongoose=require('mongoose')
 const validator=require('validator')
 
 const studentSchema=mongoose.Schema({
-    name:{
+  name:{
         type:String,
         required:true,
         trim:true,

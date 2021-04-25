@@ -2,15 +2,16 @@ import React from "react";
 import "./profile.css";
 import sucess from './Success.svg'
 let profData={
-  name:"Smiket Barodia",
-  id:'2018A7PS0231H',
-  email:'f20180231@hyderabad.bits-pilani.ac.in',
-  pnumber:'9926188556',
-  address:"11 Palsikar Colony",
-  hostel:'RAM',
-  room_no:'R437',
+  name:"",
+  id:'',
+  email:'',
+  pnumber:'',
+  address:"",
+  hostel:'',
+  room_no:'',
   dob:new Date(),
 }
+var userData=JSON.parse(localStorage.getItem('currStudentUser'))
 export default class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -22,10 +23,11 @@ export default class Profile extends React.Component {
     };
   }
   componentDidMount(){
-    var userData=JSON.parse(localStorage.getItem('currStudentUser'))
+
     const requestOptions = {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:JSON.stringify(userData)
     };
     fetch('/students/'+userData.email, requestOptions)
     .then(response=>response.json())
@@ -99,23 +101,23 @@ export default class Profile extends React.Component {
               Profile Updated Successfully!</b>
           </div>
           <div style={{position:'relative',background:'dodgerblue',width:'100%',height:'10em'}}>
-            <h1 style={{marginLeft:'10px'}}>{this.state.profileData.name}</h1>
+            <h1 style={{marginLeft:'10px'}}>{userData.name}</h1>
             <img
               style={{height:'100px',position:'absolute',right:'50%',top:'65%',background:'indianred',border:'4px solid white',borderRadius:'50%'}}
-              src={this.state.profileData.imageUrl}
+              src={userData.imageUrl}
               />
           </div>
           <div style={{width:'100%',background:'white'}}  className="profile-grid">
             <div style={{width:'80%'}}>
               <div style={{margin:'0.5em',background:'white',position:'relative'}}>
-                <input value={this.state.profileData.id} placeholder="NIL" type="text" className="form-inp"/>
+                <input id="id" onChange={handleChange} defaultValue={this.state.profileData.id} placeholder="BITS ID" type="text" className="form-inp"/>
                 <div className="bottom-border"/ >
                 </div>
               </div>
 
               <div style={{width:'80%'}}>
                 <div style={{margin:'0.5em',background:'white',position:'relative'}}>
-                  <input value={this.state.profileData.email} disable placeholder="NIL" type="text" className="form-inp"/>
+                  <input value={userData.email} type="text" className="form-inp"/>
                   <div className="bottom-border"/ >
                   </div>
                 </div>
@@ -155,7 +157,7 @@ export default class Profile extends React.Component {
 
                       <div style={{width:'80%'}}>
                         <div style={{margin:'0.5em',background:'white',position:'relative'}}>
-                          <input value={this.state.profileData.room_no} id="room_no" onChange={handleChange} placeholder="Room No." type="text" className="form-inp"/>
+                          <input defaultValue={this.state.profileData.room_no} id="room_no" onChange={handleChange} placeholder="Room No." type="text" className="form-inp"/>
                           <div className="bottom-border"/ >
                           </div>
                         </div>

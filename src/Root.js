@@ -5,6 +5,7 @@ import Login from './components/Login/app'
 import App from './App'
 import {BrowserRouter as Router, Route,NavLink} from 'react-router-dom'
 function Root() {
+console.log('%c.', 'line-height: 140px; padding: 40px 100px; background: url("https://media.tenor.com/images/75e495b108fc995f7a925b22093b1be3/tenor.gif");');
     const [userData,setUserData]=useState({
         email:"",
         name:"",
@@ -30,7 +31,7 @@ function Root() {
                 <Route path="/login">
                     <Login setUserData={setUserValue}/>
                 </Route>
-            </Router> 
+            </Router>
         </div>
     )
 }

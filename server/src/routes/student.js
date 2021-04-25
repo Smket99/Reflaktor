@@ -82,7 +82,7 @@ route.patch('/students/me', async (req,res)=>{
 // route.patch('/students/complaint/resolved',async(req,res)=>{
 //     try{
 //         const student=await Student.findOne({email:req.body.email})
-        
+
 //         if(!student){
 //             return res.status(404).send({"Message":"student not found"})
 //         }
@@ -123,4 +123,3 @@ route.patch('/students/complaint/delete',async (req,res)=>{
 })
 
 module.exports=route
-
