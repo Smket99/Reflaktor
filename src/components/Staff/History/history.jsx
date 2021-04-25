@@ -14,7 +14,7 @@ function Image(x)
   return IT;
   else if(x==="Electrician")
   return Electrician;
-  else{
+  else {
     return Carpenter;
   }
 }
@@ -26,13 +26,22 @@ export default class App extends React.Component{
       CompId:"none",
       data:logData,
       data2:logData,
+      value:"All",
       showFilters:false,
-      modalContent:<div>Content</div>
+      studentData:{
+        email:"",
+        id:"",
+        name:"",
+        room_no:"",
+        phone_number:"",
+        address:"",
+        hostel:"",
+        dob:new Date()
+      }
     }
   }
   componentDidMount(){
-    var userData=JSON.parse(localStorage.getItem('currStudentUser'))
-    fetch(`/complaints/${userData.email}`,{
+    fetch(`/complaints`,{
       method:'GET',
       headers: { 'Content-Type': 'application/json' },
       // body: JSON.stringify({email:this.props.email})
@@ -41,10 +50,9 @@ export default class App extends React.Component{
         return res.json()
       }
     }).then(json=>{
-      console.log(json);
-      this.setState({
-        data2:json
-      })
+      // console.log("Lion")
+      // console.log(json)
+      this.setState({data2:json})
       this.setState({
         data:json
       })
@@ -53,87 +61,12 @@ export default class App extends React.Component{
     })
   }
   render(){
-    const comp1=()=>{
-    return (
-      <div  className="modal-container">
-        <h1 id="modal">
-          Do you really want to delete this Complaint?
-        </h1>
-        <button  onClick={del} className="button-yes">
-          Yes
-        </button>
-        <button onClick={deleteComplaint} className="button-no">
-          No
-        </button>
-      </div>
-
-    )
-    }
-    const comp2=()=>{
-      return (
-        <div  className="modal-container">
-          <h1>Feedback Component</h1>
-          <button onClick={deleteComplaint} className="button-no">
-            Cancel
-          </button>
-        </div>
-      )
-    }
-    const markResolved=(id)=>{
-      this.setState({CompId:id});
-      var temp=this.state.data;
-      for(var i=0;i<temp.length;i++)
-      {
-        if(temp[i]!=null&&temp[i]._id==id)
-        {
-          temp[i].resolved=true
-          break;
-        }
-      }
-
-      fetch('/complaints/'+id,{
-        method:'PATCH',
-        headers: {
-          "Content-type": "application/json; charset=UTF-8"
-        },
-        body: JSON.stringify({
-          resolved:true,
-        })
-      }).then(Response=>Response.json()).then(json=>{
-        console.log(json)
-      }).catch(e=>{
-        console.log(e)
-      })
-      this.setState({data:temp});
-    }
     const toggleFilters=()=>{
       this.setState({showFilter:!this.state.showFilter});
     }
-    const del=()=>{
-      var temp=this.state.data
 
-      for(var i=0;i<temp.length;i++)
-      {
-        if(temp[i]!=null&&temp[i]._id===this.state.CompId)
-        {
-          temp[i]=null
-          break;
-        }
-      }
-
-      this.setState({data:temp});
-      this.setState({showModal:!this.state.showModal})
-      console.log(this.state.data);
-
-      fetch('/complaints/'+this.state.CompId,{
-        method:'DELETE',
-        headers:{
-          "Content-Type":'application/json; charset=UTF-8',
-        }
-      }).then(res=>res.json()).then(json=>console.log(json)).catch(e=>console.log(e))
-
-    }
     const filterStatus=()=>{
+      console.log('%c.', 'font-size: 1px; line-height: 140px; padding: 70px 125px; background: url("https://media.giphy.com/media/r1HGFou3mUwMw/giphy-downsized.gif");');
       this.setState({data:this.state.data2})
       let    x=document.getElementById("filter-stat").value
       let    y=document.getElementById("filter-dep").value
@@ -152,28 +85,41 @@ export default class App extends React.Component{
       }
       this.setState({data:temp})
     }
-    const deleteComplaint=(id)=>{
+    const deleteComplaint=(e)=>{
+      const id=e.target.id;
+      const requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+      };
+      fetch('/students/'+id, requestOptions)
+      .then(response=>response.json())
+      .then(data=>{
+        this.setState({
+          studentData:data
+        })
+      }).catch(error=>{
+        console.log(error)
+      })
       var x=document.getElementById('cont')
       if(x.style.overflow=="hidden")
       x.style.overflow="auto"
       else {
         x.style.overflow="hidden"
       }
-      this.setState({modalContent:comp1(),showModal:!this.state.showModal,CompId:id})
+      this.setState({showModal:!this.state.showModal,CompId:id})
+      window.location.href = "#modal";
     }
     const Active=(info)=>{
       return (
         <tr className="logs">
           <td><img src={Image(info.dept)}/></td>
           <td>
-            {`${info.issue.substring(0, 50)}...`}
-
+            {info.issue}
           </td>
           <td>{info.date}</td>
-          <td>  <div className="status active-log">{info.resolved?"Resolved":"Active"}</div></td>
+          <td>  <div style={{minWidth:'100%'}} className="status active-log">{info.resolved?"Resolved":"Active"}</div></td>
           <td className="basic">
-            <button style={{display:info.resolved?"none":"block"}} onClick={()=>deleteComplaint(info._id)}>Delete</button>
-            <button id="done-but" onClick={()=>this.setState({modalContent:comp2(),showModal:true})}>Resolve</button>
+            <button id={info.email} onClick={deleteComplaint}>{info.email}</button>
           </td>
         </tr>
       )
@@ -182,19 +128,19 @@ export default class App extends React.Component{
       return(
         <tr className="logs">
           <td><img src={Image(info.dept)}/></td>
-          <td style={{width:'20%'}}>
-            {`${info.issue.substring(0, 50)}...`}
+          <td>
+            {info.issue}
           </td>
           <td>{info.date}</td>
-          <td> <p className="status resolved-log">{info.resolved?"Resolved":"Active"}</p></td>
+          <td > <p style={{minWidth:'100%'}} className="status resolved-log">{info.resolved?"Resolved":"Active"}</p></td>
           <td className="basic">
-            <button style={{display:info.resolved?"none":"block"}} onClick={()=>deleteComplaint(info._id)}>Delete</button>
-            <button disabled id="done-but" onClick={()=>markResolved(info._id)}>Resolve</button>
+            <button id={info.email} onClick={deleteComplaint}>{info.email}</button>
           </td>
         </tr>
       )
     }
     var obj=[];
+    if(this.state.data!=null)
     for(var i=0;i<this.state.data.length;i++)
     {
       if(this.state.data[i]!==null)
@@ -206,28 +152,35 @@ export default class App extends React.Component{
         }
       }
     }
-
     return (
       <div id="cont" style={{position:'relative',width:'100%',minHeight:'100vh'}}>
-        <div style={{height:'100vh'}}  className={this.state.showModal?"modal basic":"modal-hide "}>
-          {this.state.modalContent}
+        <div style={{height:'100vh',position:'absolute'}}  className={this.state.showModal?"modal basic":"modal-hide "}>
+          <div className="modal-container">
+            <button style={{background:'indianred'}} onClick={deleteComplaint}>X</button>
+            <h1>Student Details</h1>
+            <div style={{fontSize:'150%',borderRadius:'10px',color:'#fff',background:'linear-gradient(to bottom,#642B73,#C6426E)',padding:'1em'}}>
+              <img style={{height:'50%',borderRadius:'50%'}} src={this.state.studentData.imageUrl}/>
 
+              <p><strong>Name: </strong>{this.state.studentData.name}</p>
+              <p><strong>ID: </strong>{this.state.studentData.id}</p>
+              <p><strong>Email: </strong>{this.state.studentData.email}</p>
+              <p><strong>Mob: </strong>{this.state.studentData.phone_number}</p>
+              <p><strong>Hostel: </strong>{this.state.studentData.hostel}</p>
+              <p><strong>Room No: </strong>{this.state.studentData.room_no}</p>
+            </div>
+          </div>
         </div>
         <nav className="basic nav" style={{background:'#212121',width:'100%',height:'3em'}}>
           <button style={{background:'none',border:'none',outline:'none',cursor:'pointer'}} onClick={toggleFilters}><img src={Filter} style={{height:'15%'}}/></button>
         </nav>
         <div style={{paddingTop:'3em',overflow:'hidden',width:'100%',position:'relative',display:'flex',minHeight:'calc(100vh - 3em)'}}>
-
-
-
-
           <table className="desktop-table">
             <tr style={{background:'pink'}}>
               <th>Department</th>
               <th>Issue</th>
               <th>Date</th>
               <th>Status</th>
-              <th>Action</th>
+              <th>Student</th>
             </tr>
             {obj}
           </table>
