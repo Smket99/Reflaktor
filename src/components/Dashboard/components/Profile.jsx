@@ -8,7 +8,7 @@ let profData={
   pnumber:'9926188556',
   address:"11 Palsikar Colony",
   hostel:'RAM',
-  roomno:'R437',
+  room_no:'R437',
   dob:new Date(),
 }
 export default class Profile extends React.Component {
@@ -32,7 +32,7 @@ export default class Profile extends React.Component {
     .then(data=>{
       this.setState({
         profileData:data
-      })
+      },()=>{console.log(this.state.profileData)})
     }).catch(error=>{
       console.log(error)
     })
@@ -102,13 +102,13 @@ export default class Profile extends React.Component {
             <h1 style={{marginLeft:'10px'}}>{this.state.profileData.name}</h1>
             <img
               style={{height:'100px',position:'absolute',right:'50%',top:'65%',background:'indianred',border:'4px solid white',borderRadius:'50%'}}
-              src="https://lh3.googleusercontent.com/a-/AOh14GhWp1heTCVFlWVkb3EQaZqcZFFwWyc7f-hmxpKs5g=s96-c"
+              src={this.state.profileData.imageUrl}
               />
           </div>
           <div style={{width:'100%',background:'white'}}  className="profile-grid">
             <div style={{width:'80%'}}>
               <div style={{margin:'0.5em',background:'white',position:'relative'}}>
-                <input value={this.state.profileData._id} placeholder="NIL" type="text" className="form-inp"/>
+                <input value={this.state.profileData.id} placeholder="NIL" type="text" className="form-inp"/>
                 <div className="bottom-border"/ >
                 </div>
               </div>
@@ -155,7 +155,7 @@ export default class Profile extends React.Component {
 
                       <div style={{width:'80%'}}>
                         <div style={{margin:'0.5em',background:'white',position:'relative'}}>
-                          <input deafaultValue={this.state.profileData.room_no} id="roomno" onChange={handleChange} placeholder="Room No." type="text" className="form-inp"/>
+                          <input value={this.state.profileData.room_no} id="room_no" onChange={handleChange} placeholder="Room No." type="text" className="form-inp"/>
                           <div className="bottom-border"/ >
                           </div>
                         </div>

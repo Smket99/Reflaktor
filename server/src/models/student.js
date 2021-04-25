@@ -22,15 +22,12 @@ const studentSchema=mongoose.Schema({
             }
         }
     },
-    _id:{
+    id:{
         type:String,
-        required:true,
         unique:true,
-        immutable: true
     },
     phone_number:{
         type:String,
-        required:true,
         validate(value){
             if(value.length!=10){
                 throw new Error("Phone number must be of 10 digits")
@@ -44,13 +41,14 @@ const studentSchema=mongoose.Schema({
     },
     hostel:{
         type:String,
-        required:true,
         trim:true,
     },
     room_no:{
         type:String,
-        required:true,
         trim:true,
+    },
+    imageUrl:{
+        type:String,
     }
 })
 
