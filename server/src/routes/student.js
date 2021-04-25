@@ -2,11 +2,17 @@ const express=require('express')
 const Student=require('../models/student')
 const route=express.Router()
 
-route.post('/students',async(req,res)=>{
+route.post('/students/:id',async(req,res)=>{
     try{
-        const student=new Student(req.body)
-        await student.save()
-        res.status(202).send({"Message":"Success"})
+        console.log(req.params.id)
+        const student=await Student.findOne({email:req.params.id})
+        console.log(student)
+        if(!student){
+            const student1=new Student(req.body)
+            await student1.save()
+            return res.status(202).send(student1)
+        }
+        res.status(202).send(student)
     }
     catch(e){
         res.status(404).send({"Message":"Failed"})
@@ -75,7 +81,7 @@ route.patch('/students/me', async (req,res)=>{
 // route.patch('/students/complaint/resolved',async(req,res)=>{
 //     try{
 //         const student=await Student.findOne({email:req.body.email})
-        
+
 //         if(!student){
 //             return res.status(404).send({"Message":"student not found"})
 //         }
@@ -116,4 +122,3 @@ route.patch('/students/complaint/delete',async (req,res)=>{
 })
 
 module.exports=route
-

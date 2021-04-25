@@ -17,20 +17,28 @@ export default class App extends React.Component{
   }
   render(){
     const responseGoogle = (response) => {
-      console.log(response.profileObj)
+      // console.log(response.profileObj)
+      const e =response.profileObj.email
+      const addr = e.split('@').pop()
+      if(addr==="hyderabad.bits-pilani.ac.in"||!this.state.isStudent)
+      {
       document.querySelector(this.state.isStudent?".form":".form2").classList.add("move-away");
       document.querySelector(this.state.isStudent?".sidepanel":".sidepanel2").classList.add("move-away2");
       document.querySelector(".container").classList.add("move-away3");
       document.querySelector(".app").classList.add("move-away");
       const userData={
-            email: response.profileObj.email,
-            imageUrl:response.profileObj.imageUrl,
-            name:response.profileObj.givenName
+        email: response.profileObj.email,
+        imageUrl:response.profileObj.imageUrl,
+        name:response.profileObj.givenName
       }
       var user=this.state.isStudent?"Student":"Admin"
       this.props.setUserData(userData);
       window.localStorage.setItem(`curr${user}User`,JSON.stringify(userData))
       setTimeout(()=>window.location.href=`/${user}`,3000);
+      }
+      else {
+        alert("Not a BITS ID")
+      }
     };
     const toggle = () => {
       this.setState({ isStudent: !this.state.isStudent });
@@ -47,7 +55,7 @@ export default class App extends React.Component{
               clientId="1011631254622-veeotam9apd3u9onh2aba8l4atdi5he5.apps.googleusercontent.com"
               buttonText="Sign In"
               onSuccess={responseGoogle}
-              onFailure={responseGoogle}
+              onFailure={()=>console.log("Error")}
               cookiePolicy={"single_host_origin"}
               />
           </div>
@@ -67,7 +75,7 @@ export default class App extends React.Component{
               clientId="1011631254622-veeotam9apd3u9onh2aba8l4atdi5he5.apps.googleusercontent.com"
               buttonText="Sign In"
               onSuccess={responseGoogle}
-              onFailure={responseGoogle}
+              onFailure={()=>console.log("Error")}
               cookiePolicy={"single_host_origin"}
               />
           </div>

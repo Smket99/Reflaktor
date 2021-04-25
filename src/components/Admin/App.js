@@ -18,6 +18,13 @@ const back = ".components/over-back.svg";
 var menuItems = ["Report", "Complaint","Notify","Logout"];
 var menuItems1 = ["Report", "Complaint","Notify","Logout"];
 export default function App() {
+  React.useEffect(()=>{
+    if(localStorage.getItem("currAdminUser")===null)
+    {
+      alert("Access Restricted !")
+      window.location.href="/login"
+    }
+  },[])
   const {state}=history.location
   console.log(state);
   const [exp, setExp] = React.useState(false);

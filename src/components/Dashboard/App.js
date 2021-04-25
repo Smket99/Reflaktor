@@ -20,6 +20,13 @@ const back = ".components/over-back.svg";
 var menuItems = ["Profile", "Complaint","History", "Logout","Notification"];
 var menuItems1=["Profile", "Complaint","History", "Logout"];
 export default function App(props) {
+  React.useEffect(()=>{
+    if(localStorage.getItem("currStudentUser")===null)
+    {
+      alert("Access Restricted !")
+      window.location.href="/login"
+    }
+  },[])
   const {state}=history.location
   const [exp, setExp] = React.useState(false);
   const closeDrawer = () => {
@@ -107,100 +114,100 @@ export default function App(props) {
       <div className="dash-cont">
         <div className="basic dash-menu">
           <NavLink to="/student"><img src={Logo1} width="90%" style={{position:'absolute',top:'1%',left:'2%'}}/></NavLink>{Menu}</div>
-        <div id="mob-menu" className="basic dash-menu-mob">
-          <img src={Logo} width="90%" style={{position:'',top:'10%',left:'2%'}}/>
+          <div id="mob-menu" className="basic dash-menu-mob">
+            <img src={Logo} width="90%" style={{position:'',top:'10%',left:'2%'}}/>
 
-          <div
-            style={{ display: exp ? "none" : "block" }}
-            onClick={toggleMen}
-            className="hamburger"
-            >
             <div
-              style={{
-                width: "50%",
-                margin: "0.1em",
-                borderRadius: "10px",
-                height: "0.2em",
-                background: "white"
-              }}
-              />
+              style={{ display: exp ? "none" : "block" }}
+              onClick={toggleMen}
+              className="hamburger"
+              >
+              <div
+                style={{
+                  width: "50%",
+                  margin: "0.1em",
+                  borderRadius: "10px",
+                  height: "0.2em",
+                  background: "white"
+                }}
+                />
+              <div
+                id="ln-1"
+                style={{
+                  borderRadius: "10px",
+                  margin: "0.1em",
+                  height: "0.2em",
+                  background: "white"
+                }}
+                />
+              <div
+                id="ln-2"
+                style={{
+                  borderRadius: "10px",
+                  margin: "0.1em",
+                  height: "0.2em",
+                  background: "white"
+                }}
+                />
+            </div>
             <div
-              id="ln-1"
-              style={{
-                borderRadius: "10px",
-                margin: "0.1em",
-                height: "0.2em",
-                background: "white"
-              }}
-              />
-            <div
-              id="ln-2"
-              style={{
-                borderRadius: "10px",
-                margin: "0.1em",
-                height: "0.2em",
-                background: "white"
-              }}
-              />
+              style={{ display:"flex"}}
+              className="basic close-cross"
+              onClick={toggleMen}
+              >
+              <div
+                style={{
+                  width: "20px",
+                  margin: "0.1em",
+                  height: "0.2em",
+                  background: "white",
+                  borderRadius: "20px",
+                  transform: "rotate(45deg)",
+                  position: "absolute"
+                }}
+                />
+              <div
+                style={{
+                  borderRadius: "20px",
+                  width: "20px",
+                  margin: "0.1em",
+                  height: "0.2em",
+                  background: "white",
+                  transform: "rotate(-45deg)",
+                  position: "absolute"
+                }}
+                />
+            </div>
+            {Menu}
           </div>
-          <div
-            style={{ display:"flex"}}
-            className="basic close-cross"
-            onClick={toggleMen}
-            >
-            <div
-              style={{
-                width: "20px",
-                margin: "0.1em",
-                height: "0.2em",
-                background: "white",
-                borderRadius: "20px",
-                transform: "rotate(45deg)",
-                position: "absolute"
-              }}
-              />
-            <div
-              style={{
-                borderRadius: "20px",
-                width: "20px",
-                margin: "0.1em",
-                height: "0.2em",
-                background: "white",
-                transform: "rotate(-45deg)",
-                position: "absolute"
-              }}
-              />
-          </div>
-          {Menu}
-        </div>
 
-        <div onFocus={closeDrawer} className="crumbs">
-          {routes.map(({ path, Component }) => (
-            <Route key={path} exact path={path}>
-              {({ match }) => (
-                <CSSTransition
-                  in={match != null}
-                  timeout={500}
-                  classNames="page"
-                  unmountOnExit
-                  >
-                  <div className="page">
-                    <Component userData={state}/>
-                  </div>
-                </CSSTransition>
-              )}
-            </Route>
-          ))}
+          <div onFocus={closeDrawer} className="crumbs">
+            {routes.map(({ path, Component }) => (
+              <Route key={path} exact path={path}>
+                {({ match }) => (
+                  <CSSTransition
+                    in={match != null}
+                    timeout={500}
+                    classNames="page"
+                    unmountOnExit
+                    >
+                    <div className="page">
+                      <Component userData={state}/>
+                    </div>
+                  </CSSTransition>
+                )}
+              </Route>
+            ))}
+          </div>
         </div>
-      </div>
-      <style>
-        @import
-        url('https://fonts.googleapis.com/css2?family=Potta+One&display=swap');
-      </style>
-      <style>
-        @import
-        url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap');
-      </style>
-    </Router>
-  );
-}
+        <style>
+          @import
+          url('https://fonts.googleapis.com/css2?family=Potta+One&display=swap');
+        </style>
+        <style>
+          @import
+          url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap');
+        </style>
+      </Router>
+    );
+  }

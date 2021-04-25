@@ -25,11 +25,12 @@ export default class App extends React.Component{
       showModal:false,
       CompId:"none",
       data:logData,
+      data2:logData,
       value:"All",
       showFilters:false,
       studentData:{
         email:"",
-        _id:"",
+        id:"",
         name:"",
         room_no:"",
         phone_number:"",
@@ -51,6 +52,7 @@ export default class App extends React.Component{
     }).then(json=>{
       // console.log("Lion")
       // console.log(json)
+      this.setState({data2:json})
       this.setState({
         data:json
       })
@@ -64,23 +66,24 @@ export default class App extends React.Component{
     }
 
     const filterStatus=()=>{
-      // this.setState({data:logData})
+      console.log('%c.', 'font-size: 1px; line-height: 140px; padding: 70px 125px; background: url("https://media.giphy.com/media/r1HGFou3mUwMw/giphy-downsized.gif");');
+      this.setState({data:this.state.data2})
       let    x=document.getElementById("filter-stat").value
       let    y=document.getElementById("filter-dep").value
-      var temp=this.state.data;
-      for(var i=0;i<this.state.data.length;i++)
-      {
-        var xx=false
-        if(x.toLowerCase()==="resolved")xx=true
-        if((this.state.data[i]!=undefined)&&(this.state.data[i].resolved===xx||x==="All")&&(this.state.data[i].dept===y||y==="All"))
+      var temp=[]
+      var xx=false
+      if(x==="Resolved")
+      xx=true;
+      for(var i=0;i<this.state.data2.length;i++){
+        if((this.state.data2[i].resolved===xx||x==="All")&&(this.state.data2[i].dept===y||y==="All"))
         {
-          temp[i]=this.state.data[i];
+          temp[i]=this.state.data2[i]
         }
-        else {
-          temp[i]=null;
+        else{
+          temp[i]=null
         }
       }
-      this.setState({data:temp});
+      this.setState({data:temp})
     }
     const deleteComplaint=(e)=>{
       const id=e.target.id;
@@ -159,7 +162,7 @@ export default class App extends React.Component{
               <img style={{height:'50%',borderRadius:'50%'}} src={this.state.studentData.imageUrl}/>
 
               <p><strong>Name: </strong>{this.state.studentData.name}</p>
-              <p><strong>ID: </strong>{this.state.studentData._id}</p>
+              <p><strong>ID: </strong>{this.state.studentData.id}</p>
               <p><strong>Email: </strong>{this.state.studentData.email}</p>
               <p><strong>Mob: </strong>{this.state.studentData.phone_number}</p>
               <p><strong>Hostel: </strong>{this.state.studentData.hostel}</p>
