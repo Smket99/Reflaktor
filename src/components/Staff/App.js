@@ -2,10 +2,9 @@ import React from "react";
 import "./styles.css";
 import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
-import Report from "./components/Report";
 import Complaint from "./History/history";
 import Logout from "./components/Logout";
-import Notification from "./components/Notification";
+import Profile from "./components/Profile";
 import LogImg from "./components/Logout.svg";
 import ProfImg from "./components/Report.svg";
 import CompImg from "./components/Complaint.svg";
@@ -13,17 +12,17 @@ import Logo from './components/Logo.svg';
 import Logo1 from './components/Logo1.svg';
 import history from '../../history'
 const ham = "./components/Hamburger.svg";
-const comps = [Report,Complaint,Notification,Logout];
+const comps = [Profile,Complaint,Logout];
 const back = ".components/over-back.svg";
-var menuItems = ["Report", "Complaint","Notify","Logout"];
-var menuItems1 = ["Report", "Complaint","Notify","Logout"];
+var menuItems = ["Profile","Complaint","Logout"];
+var menuItems1 = ["Profile","Complaint","Logout"];
 export default function App() {
   React.useEffect(()=>{
-    if(localStorage.getItem("currAdminUser")===null)
-    {
-      alert("Access Restricted !")
-      window.location.href="/login"
-    }
+    // if(localStorage.getItem("currstaffUser")===null)
+    // {
+    //   alert("Access Restricted !")
+    //   window.location.href="/login"
+    // }
   },[])
   const {state}=history.location
   console.log(state);
@@ -47,7 +46,7 @@ export default function App() {
   };
   document.title = "Dashboard";
   const Imgae=(x)=>{
-    if(x==="Report")
+    if(x==="Profile")
     return ProfImg;
     else if(x==="Logout")
     return LogImg;
@@ -56,7 +55,7 @@ export default function App() {
   }
   const Menu = menuItems1.map((item) => (
     <NavLink
-      to={"/admin/" + item}
+      to={"/staff/" + item}
       onClick={closeDrawer}
       className="dash-menu-item"
       style={{
@@ -91,7 +90,7 @@ export default function App() {
   const routes = [];
   for (var i = 0; i < menuItems.length; i++) {
     routes.push({
-      path: "/admin/" + menuItems[i],
+      path: "/staff/" + menuItems[i],
       name: menuItems[i],
       Component: comps[i]
     });
