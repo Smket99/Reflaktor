@@ -46,10 +46,10 @@ export default class App extends React.Component{
     }).then(json=>{
       console.log(json);
       this.setState({
-        data2:json
+        data2:json.complaints
       })
       this.setState({
-        data:json
+        data:json.complaints
       })
     }).catch(e=>{
       console.log(e);
@@ -197,10 +197,10 @@ export default class App extends React.Component{
       }).then(json => {
         console.log(json);
         this.setState({
-          data2: json
+          data2: json.complaints
         })
         this.setState({
-          data: json
+          data: json.complaints
         })
       }).catch(e => {
         console.log(e);
@@ -265,7 +265,8 @@ export default class App extends React.Component{
         <tr className="logs">
           <td><img src={Image(info.dept)}/></td>
           <td>
-            {info.issue}
+            {`${info.issue.substring(0, 50)}...`}
+
           </td>
           <td>{info.date}</td>
           <td>  <div className="status active-log">{info.resolved?"Resolved":"Active"}</div></td>
@@ -280,8 +281,8 @@ export default class App extends React.Component{
       return(
         <tr className="logs">
           <td><img src={Image(info.dept)}/></td>
-          <td>
-            {info.issue}
+          <td style={{width:'20%'}}>
+            {`${info.issue.substring(0, 50)}...`}
           </td>
           <td>{info.date}</td>
           <td> <p className="status resolved-log">{info.resolved?"Resolved":"Active"}</p></td>

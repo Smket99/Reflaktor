@@ -1,0 +1,139 @@
+.down-pdf{
+  position:fixed;
+  right:4%;
+  bottom:4%;
+  background:none;
+  outline:none;
+  border:none;
+  cursor:pointer;
+  color:white;
+  padding:4px 16px
+}
+.complaint{
+  background:white;
+  width:100%;
+  min-height:20%;
+}
+.report-content{
+  width:calc(100% - 1em);
+  padding:0.5em 0.5em;
+  background:#ccc;
+  position:relative;
+  height:calc(90% - 1em);
+  overflow: auto;
+}
+.report{
+  justify-content: space-between;
+  display:flex;
+  flex-direction: column;
+  background:white;
+  height:90%;
+  width:60%;
+  padding:1em;
+  position:relative;
+  border-radius:5px;
+  box-shadow:0 4px 8px 0 #00000056,0 6px 20px 0 #00000056;
+}
+.report-pdf{
+  justify-content: space-between;
+  display:flex;
+  flex-direction: column;
+  background:white;
+  min-height:80%;
+  width:40%;
+  padding:1em;
+  position:relative;
+  border-radius:5px;
+  box-shadow:0 4px 8px 0 #00000056,0 6px 20px 0 #00000056;
+}
+.report-topper{
+  width:100%;
+  background:#212121;
+  height:10%;
+  color:white;
+  font-size: 150%;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.report-container{
+  background:white;
+  min-height:50%;
+  width:50%;
+  padding:1em;
+  border-radius:5px;
+  box-shadow:0 4px 8px 0 #00000056,0 6px 20px 0 #00000056;
+}
+.report-container div{
+  margin:1em;
+}
+.generate{
+  outline:none;
+  border:none;
+  cursor:pointer;
+  position:relative;
+  background:linear-gradient(to right,#6441a5, #2a0845);
+  color:white;
+  font-size:150%;
+  border-radius:5px;
+  padding:4px 16px ;
+  transition:0.5s ease-in-out;
+  display:flex;
+  align-items: center;
+}
+.generate:hover{
+  width:130%;
+  box-shadow:0 4px 8px 0 #6441a556,0 6px 20px 0 #6441a556;
+}
+.arrow{
+  position:absolute;
+  right:10%;
+  transform:translateX(-100vw);
+  margin-left: 0.5em;
+  transition: 0.5s ease-in-out;
+}
+.generate:hover .arrow{
+  transition:0.5s ease-in-out;
+  transform:translateX(0%);
+}
+.move-away-generate{
+  transform:translateX(100vw);
+}
+#report-cont{
+  transition:1s ease-in-out;
+}
+.move-away-report-cont{
+  transition-delay: 10s;
+  transform:translateY(-100vh) scale(0);
+}
+.report-content::-webkit-scrollbar {
+  display: none;
+
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.report-content {
+  overflow-y: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}

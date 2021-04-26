@@ -117,11 +117,9 @@ route.patch('/complaints/:id',async(req,res)=>{
         if(req.body.comment!==""){
             complaint.comment=req.body.comment
         }
-        
         complaint.dateResolved=req.body.dateResolved
         complaint.resolved=true;
         await complaint.save()
-
         console.log(complaint)
         res.status(202).send({"Message":"Complaint status changed to resolved"})
     }
