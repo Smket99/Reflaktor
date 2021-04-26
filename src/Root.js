@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Student from './components/Dashboard/App'
 import Admin from './components/Admin/App'
 import Login from './components/Login/app'
+import Staff from './components/Staff/App'
 import App from './App'
 import {BrowserRouter as Router, Route,NavLink} from 'react-router-dom'
 function Root() {
@@ -27,6 +28,9 @@ console.log('%c.', 'line-height: 140px; padding: 40px 100px; background: url("ht
                  </Route>
                  <Route  path="/admin" >
                      <Admin userData={userData}/>
+                 </Route>
+                 <Route  path="/staff" >
+                     <Staff userData={userData}/>
                  </Route>
                 <Route path="/login">
                     <Login setUserData={setUserValue}/>
