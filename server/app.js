@@ -5,6 +5,7 @@ const studentRouter=require('./src/routes/student')
 const complaintRouter=require('./src/routes/complaints')
 const noticeRouter=require('./src/routes/notice')
 const FilterRouter=require('./src/routes/sendComplaint')
+const StaffRouter=require('./src/routes/staff')
 const app=express()
 const path=require('path')
 const port=process.env.PORT
@@ -16,10 +17,11 @@ app.use(studentRouter)
 app.use(complaintRouter)
 app.use(noticeRouter)
 app.use(FilterRouter)
+app.use(StaffRouter)
 app.use(express.static(path.join(__dirname, '/build')));
-app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, '/build/index.html'));
-});
+// app.get('*', function (req, res) {
+//   res.sendFile(path.join(__dirname, '/build/index.html'));
+// });
 
 app.listen(port,()=>{
     console.log("Server is up on the port: "+ port)
