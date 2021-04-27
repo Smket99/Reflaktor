@@ -25,11 +25,11 @@ const complaintSchema=mongoose.Schema({
         ref:'Student'
     },
     date:{
-      type:String,
+      type:Date,
       required:true
     },
     dateResolved:{
-        type:String,
+        type:Date,
     },
     comment:{
         type:String,

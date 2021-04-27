@@ -61,17 +61,16 @@ route.patch('/staff/me', async (req, res) => {
 
 route.get('/staffcomplaints/:id', async (req, res) => {
     try {
-
         const { page = 1, limit = 10 } = req.query
         const staff=await Staff.findOne({email:req.params.id})
         const complaint = await Complaint.find({ dept: staff.dept, resolved: false }).limit(limit * 1).skip((page - 1) * limit);
         if(!complaint){
             return res.status(404).send({"Message":"No complaints found"});
         }
-        console.log(complaint)
         res.status(202).send(complaint);
     }
     catch (e) {
+        console.log(e);
         res.status(505).send({ "Message": "Error encountered" })
     }
 })

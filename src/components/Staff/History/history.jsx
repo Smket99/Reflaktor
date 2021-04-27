@@ -18,6 +18,7 @@ function Image(x) {
     return Carpenter;
   }
 }
+var StaffUser = JSON.parse(localStorage.getItem("currStaffUser"))
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -44,7 +45,7 @@ export default class App extends React.Component {
     }
   }
   componentDidMount() {
-    var StaffUser=JSON.parse(localStorage.getItem("currStaffUser"))
+    
     fetch(`/staffcomplaints/${StaffUser.email}`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
@@ -53,8 +54,8 @@ export default class App extends React.Component {
         return res.json()
       }
     }).then(json => {
-      // console.log("Lion")
-      // console.log(json)
+      console.log("Lion")
+      console.log(json)
       this.setState({ data2: json })
       this.setState({
         data: json
@@ -73,19 +74,17 @@ export default class App extends React.Component {
       const num = e.target.id === "next" ? 1 : -1;
       const temp = this.state.page_no;
       this.setState({ page_no: temp + num });
-      fetch(`/staffcomplaints?page=${this.state.page_no + num}&limit=${10}`, {
-        method: 'POST',
+      fetch(`/staffcomplaints/${StaffUser.email}?page=${this.state.page_no + num}&limit=${10}`, {
+        method: 'GET',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({dept:"IT"})
       }).then(res => {
         if (res.ok) {
           return res.json()
         }
       }).then(json => {
-        // console.log(json);
-        this.setState({
-          data2: json
-        })
+        console.log("Lion")
+        console.log(json)
+        this.setState({ data2: json })
         this.setState({
           data: json
         })

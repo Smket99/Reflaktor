@@ -186,11 +186,13 @@ render(){
     var data=[]
     document.getElementById("generate").classList.add("move-away-generate")
     document.getElementById("report-cont").classList.add("move-away-report-cont")
-    var month=document.getElementById('month').value;
-    const op={
+    var month = document.getElementById('month').value.slice(5,);
+    if (month[0] === '0')
+      month = month[1]
+    const op = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({month:month.slice(5,)})
+      body: JSON.stringify({ month: month })
     }
     fetch('/getfilteredcomplaint',op)
     .then(res=>res.json())

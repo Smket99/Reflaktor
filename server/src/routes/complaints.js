@@ -29,6 +29,9 @@ route.post('/complaints',async(req,res)=>{
 
 route.post('/compla',async(req,res)=>{
     try{
+        data.sort((a,b)=>{
+            return new Date(a.date)-new Date(b.date)
+        })
         const emails=["f20180101@hyderabad.bits-pilani.ac.in","f20180231@hyderabad.bits-pilani.ac.in","f20180323@hyderabad.bits-pilani.ac.in","f20180187@hyderabad.bits-pilani.ac.in","f20180168@hyderabad.bits-pilani.ac.in"]
         for (let i = 0; i < data.length; i++) {
             console.log(i);
@@ -69,11 +72,12 @@ route.post('/compla',async(req,res)=>{
 route.get('/complaints',async(req,res)=>{
     try{
         const { page = 1, limit = 10 } = req.query
-        const complaint = await Complaint.find({}).limit(limit * 1).skip((page - 1) * limit)
-        // console.log(complaint)
+        const complaint = await Complaint.find({}).sort({ 'date': -1 }).limit(limit * 1).skip((page - 1) * limit)
+        console.log(complaint)
         res.status(202).send(complaint)
     }
     catch(e){
+        console.log(e);
         res.status(505).send({"Message":"Error Encountered"})
     }
 })
@@ -83,12 +87,16 @@ route.get('/complaints/:id',async(req,res)=>{
     try{
         // console.log(req.params.id)
         const {page=1,limit=10}=req.query
-        if(page===1){
-            const count=await Complaint.count({email:req.params.id})
-            const complaints = await Complaint.find({ email: req.params.id }).limit(limit * 1).skip((page - 1) * limit)
-            return res.status(202).send({count:count,complaints:complaints});
+        const complaint=await Complaint.find({email:req.params.id});
+        complaint.sort((a,b)=>{
+            return b.date-a.date;
+        })
+
+        var complaints=[];
+        for(let i=(page-1)*limit;(i<page*limit) && (i<complaint.length);i++){
+            complaints.push(complaint[i]);
         }
-        const complaints=await Complaint.find({email:req.params.id}).limit(limit*1).skip((page-1)*limit)
+
         // console.log(complaints)
         if(!complaints){
             return res.status(404).send({"Message":"There's no student with this id"})

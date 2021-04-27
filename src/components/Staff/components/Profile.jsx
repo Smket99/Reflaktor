@@ -106,7 +106,7 @@ export default class Profile extends React.Component {
           <div style={{width:'100%',background:'white'}}  className="profile-grid">
             <div style={{width:'80%'}}>
               <div style={{margin:'0.5em',background:'white',position:'relative'}}>
-                <select onChange={handleChange} id="dept" className="form-inp">
+                <select value={profData.dept} onChange={handleChange} id="dept" className="form-inp">
                   <option>Electrician</option>
                   <option>Carpenter</option>
                   <option>Plumber</option>
