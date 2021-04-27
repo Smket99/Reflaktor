@@ -18,11 +18,11 @@ var menuItems = ["Profile","Complaint","Logout"];
 var menuItems1 = ["Profile","Complaint","Logout"];
 export default function App() {
   React.useEffect(()=>{
-    // if(localStorage.getItem("currstaffUser")===null)
-    // {
-    //   alert("Access Restricted !")
-    //   window.location.href="/login"
-    // }
+    if(localStorage.getItem("currStaffUser")===null)
+    {
+      alert("Access Restricted !")
+      window.location.href="/login"
+    }
   },[])
   const {state}=history.location
   console.log(state);

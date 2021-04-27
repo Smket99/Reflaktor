@@ -20,24 +20,27 @@ export default class App extends React.Component{
       // console.log(response.profileObj)
       const e =response.profileObj.email
       const addr = e.split('@').pop()
-      if(addr==="hyderabad.bits-pilani.ac.in"||!this.state.isStudent)
+      if((addr==="hyderabad.bits-pilani.ac.in" && this.state.isStudent) || (addr==="gmail.com" && !this.state.isStudent)  )
       {
-      document.querySelector(this.state.isStudent?".form":".form2").classList.add("move-away");
-      document.querySelector(this.state.isStudent?".sidepanel":".sidepanel2").classList.add("move-away2");
-      document.querySelector(".container").classList.add("move-away3");
-      document.querySelector(".app").classList.add("move-away");
-      const userData={
-        email: response.profileObj.email,
-        imageUrl:response.profileObj.imageUrl,
-        name:response.profileObj.givenName
-      }
-
-        const requestOptions = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(userData)
-        };
-        fetch('/students/' + userData.email, requestOptions)
+        document.querySelector(this.state.isStudent?".form":".form2").classList.add("move-away");
+        document.querySelector(this.state.isStudent?".sidepanel":".sidepanel2").classList.add("move-away2");
+        document.querySelector(".container").classList.add("move-away3");
+        document.querySelector(".app").classList.add("move-away");
+        var user=this.state.isStudent?"Student":document.getElementById('isStaff').checked?"Staff":"Admin"
+        const userData={
+          email: response.profileObj.email,
+          imageUrl:response.profileObj.imageUrl,
+          name:response.profileObj.givenName,
+          isStaff:user==="Staff"?true:false
+        }
+        if(user!=="Student")
+        {
+          const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userData)
+          };
+          fetch('/Staff/' + userData.email, requestOptions)
           .then(response => response.json())
           .then(data => {
             this.setState({
@@ -47,15 +50,34 @@ export default class App extends React.Component{
           }).catch(error => {
             console.log(error)
           })
-
-
-      var user=this.state.isStudent?"Student":"Admin"
-      this.props.setUserData(userData);
-      window.localStorage.setItem(`curr${user}User`,JSON.stringify(userData))
-      setTimeout(()=>window.location.href=`/${user}`,3000);
+        }
+        else{
+          const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userData)
+          };
+          fetch('/students/' + userData.email, requestOptions)
+          .then(response => response.json())
+          .then(data => {
+            this.setState({
+              profileData: data
+            })
+            console.log(data);
+          }).catch(error => {
+            console.log(error)
+          })
+        }
+        this.props.setUserData(userData);
+        window.localStorage.setItem(`curr${user}User`,JSON.stringify(userData))
+        setTimeout(()=>window.location.href=`/${user}`,3000);
       }
       else {
-        alert("Not a BITS ID")
+        if(this.state.isStudent)
+        alert("Not a BITS ID!")
+        else {
+          alert("BITS ID Not Allowed!")
+        }
       }
     };
     const toggle = () => {
@@ -76,7 +98,12 @@ export default class App extends React.Component{
               onFailure={()=>console.log("Error")}
               cookiePolicy={"single_host_origin"}
               />
+            <div style={{width:'20%',margin:'1em',display:this.state.isStudent?"none":"flex", justifyContent:'space-around',alignItems:'center'}}>
+              <input id="isStaff"  type="checkbox" />
+              <label htmlFor="isStaff"> Hostel Staff</label>
+            </div>
           </div>
+
           <div className={this.state.isStudent?"sidepanel basic":"sidepanel2 basic"}>
             <button id="toggle-tabs" onClick={toggle}>
               {this.state.isStudent ? "Admin" : "Student"}

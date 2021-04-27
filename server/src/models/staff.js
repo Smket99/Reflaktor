@@ -7,9 +7,6 @@ const staffSchema = mongoose.Schema({
         required: true,
         trim: true,
     },
-    dob: {
-        type: String,
-    },
     email: {
         type: String,
         required: true,
@@ -31,9 +28,8 @@ const staffSchema = mongoose.Schema({
         },
         trim: true,
     },
-    address: {
-        type: String,
-        trim: true,
+    isStaff:{
+        type:Boolean,
     },
     imageUrl: {
         type: String,

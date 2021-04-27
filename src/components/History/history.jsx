@@ -34,7 +34,7 @@ export default class App extends React.Component{
     }
   }
   componentDidMount(){
-    
+
     fetch(`/complaints/${userData.email}?page=${this.state.page_no}&limit=${10}`,{
       method:'GET',
       headers: { 'Content-Type': 'application/json' },
@@ -264,7 +264,8 @@ export default class App extends React.Component{
       return (
         <tr className="logs">
           <td><img src={Image(info.dept)}/></td>
-          <td>
+            <td style={{width:'25%'}}>
+
             {`${info.issue.substring(0, 50)}...`}
 
           </td>
@@ -281,7 +282,7 @@ export default class App extends React.Component{
       return(
         <tr className="logs">
           <td><img src={Image(info.dept)}/></td>
-          <td style={{width:'20%'}}>
+            <td style={{width:'25%'}}>
             {`${info.issue.substring(0, 50)}...`}
           </td>
           <td>{info.date}</td>
@@ -360,7 +361,7 @@ export default class App extends React.Component{
           <button id="prev" onClick={handlePageChange} style={{ margin: "20px",display:this.state.page_no===1?"none":"" , width:"150px", height:"50px", border: 'none', outline: 'none', cursor: 'pointer' }} className="button-yes">Prev</button>
           <button id="next" onClick={handlePageChange} style={{ margin: "20px", display: this.state.data.length < 10 ? "none" : "", marginLeft:"60em", width: "150px", height: "50px", border: 'none', outline: 'none', cursor: 'pointer' }}className="button-yes">Next</button>
         </div>
-        
+
       </div>
     )
   }

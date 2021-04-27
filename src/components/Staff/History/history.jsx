@@ -44,11 +44,10 @@ export default class App extends React.Component {
     }
   }
   componentDidMount() {
-    alert("HI");
-    fetch(`/staffcomplaints`, {
-      method: 'POST',
+    var StaffUser=JSON.parse(localStorage.getItem("currStaffUser"))
+    fetch(`/staffcomplaints/${StaffUser.email}`, {
+      method: 'GET',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({dept:'IT'})
     }).then(res => {
       if (res.ok) {
         return res.json()
@@ -83,7 +82,7 @@ export default class App extends React.Component {
           return res.json()
         }
       }).then(json => {
-        console.log(json);
+        // console.log(json);
         this.setState({
           data2: json
         })
@@ -123,6 +122,7 @@ export default class App extends React.Component {
       fetch('/students/' + id, requestOptions)
         .then(response => response.json())
         .then(data => {
+          console.log("STUDENT");
           console.log(data);
           this.setState({
             studentData: data
@@ -140,12 +140,13 @@ export default class App extends React.Component {
       window.location.href = "#modal";
     }
     const Active = (info) => {
-      console.log(info);
       return (
         <tr className="logs">
           <td><img src={Image(info.dept)} /></td>
-          <td>
-            {info.issue}
+            <td style={{width:'25%'}}>
+
+            {`${info.issue.substring(0, 50)}...`}
+
           </td>
           <td>{info.date}</td>
           <td>  <div style={{ minWidth: '100%' }} className="status active-log">{info.resolved ? "Resolved" : "Active"}</div></td>
@@ -160,8 +161,10 @@ export default class App extends React.Component {
       return (
         <tr className="logs">
           <td><img src={Image(info.dept)} /></td>
-          <td>
-            {info.issue}
+            <td style={{width:'25%'}}>
+
+            {`${info.issue.substring(0, 50)}...`}
+
           </td>
           <td>{info.date}</td>
           <td > <p style={{ minWidth: '100%' }} className="status resolved-log">{info.resolved ? "Resolved" : "Active"}</p></td>

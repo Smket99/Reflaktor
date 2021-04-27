@@ -8,16 +8,18 @@ route.post('/staff/:id', async (req, res) => {
         console.log(req.params.id)
         const staff = await Staff.findOne({ email: req.params.id })
         if (staff) {
+          console.log("STAFFFFFFFFUCK");
             res.status(202).send({ "Message": "Logging in" });
             return;
         }
-        const staff1 = new staff(req.body)
+        const staff1 = new Staff(req.body)
         console.log(staff1);
         await staff1.save()
         return res.status(202).send(staff1)
         // res.status(202).send(student)
     }
     catch (e) {
+      console.log(e);
         res.status(404).send({ "Message": "Failed" })
     }
 })
@@ -41,18 +43,13 @@ route.patch('/staff/me', async (req, res) => {
     try {
         console.log(req.body)
         const updates = Object.keys(req.body)
-        console.log(updates);
-        console.log("Updates")
         const staff = await Staff.findOne({ email: req.body.email })
-        console.log("staff")
-        console.log(staff)
         if (!staff) {
             return res.status(404).send({ "Message": "staff not found" })
         }
         updates.forEach(update => {
             staff[update] = req.body[update]
         })
-        console.log(staff)
         await staff.save()
         res.status(200).send({ "Message": "Updated Successfully" })
     }
@@ -62,12 +59,12 @@ route.patch('/staff/me', async (req, res) => {
 })
 
 
-route.post('/staffcomplaints', async (req, res) => {
+route.get('/staffcomplaints/:id', async (req, res) => {
     try {
+
         const { page = 1, limit = 10 } = req.query
-        console.log("JJHG");
-        console.log(req.body);
-        const complaint = await Complaint.find({ dept: req.body.dept, resolved: false }).limit(limit * 1).skip((page - 1) * limit);
+        const staff=await Staff.findOne({email:req.params.id})
+        const complaint = await Complaint.find({ dept: staff.dept, resolved: false }).limit(limit * 1).skip((page - 1) * limit);
         if(!complaint){
             return res.status(404).send({"Message":"No complaints found"});
         }

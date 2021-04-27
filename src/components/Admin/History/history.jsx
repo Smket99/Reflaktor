@@ -64,7 +64,7 @@ export default class App extends React.Component{
       console.log(e);
     })
   }
-  
+
   render(){
     const toggleFilters=()=>{
       this.setState({showFilter:!this.state.showFilter});
@@ -145,8 +145,9 @@ export default class App extends React.Component{
       return (
         <tr className="logs">
           <td><img src={Image(info.dept)}/></td>
-          <td>
-            {info.issue}
+            <td style={{width:'25%'}}>
+
+                        {`${info.issue.substring(0, 50)}...`}
           </td>
           <td>{info.date}</td>
           <td>  <div style={{minWidth:'100%'}} className="status active-log">{info.resolved?"Resolved":"Active"}</div></td>
@@ -161,8 +162,8 @@ export default class App extends React.Component{
       return(
         <tr className="logs">
           <td><img src={Image(info.dept)}/></td>
-          <td>
-            {info.issue}
+          <td style={{width:'25%'}}>
+                        {`${info.issue.substring(0, 50)}...`}
           </td>
           <td>{info.date}</td>
           <td > <p style={{minWidth:'100%'}} className="status resolved-log">{info.resolved?"Resolved":"Active"}</p></td>

@@ -3,13 +3,9 @@ import "./profile.css";
 import sucess from './Success.svg'
 let profData={
   name:"",
-  id:'',
   email:'',
   pnumber:'',
-  address:"",
-  hostel:'',
-  room_no:'',
-  dob:new Date(),
+  dept:'',
 }
 var userData=JSON.parse(localStorage.getItem('currStaffUser'))
 export default class Profile extends React.Component {
@@ -25,11 +21,10 @@ export default class Profile extends React.Component {
   componentDidMount(){
 
     const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:JSON.stringify(userData)
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
     };
-    fetch('/students/'+userData.email, requestOptions)
+    fetch('/Staff/'+userData.email, requestOptions)
     .then(response=>response.json())
     .then(data=>{
       this.setState({
@@ -73,7 +68,7 @@ export default class Profile extends React.Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(this.state.profileData)
       };
-      fetch('/students/me', requestOptions)
+      fetch('/staff/me', requestOptions)
       .then((res)=>{
         console.log(res)
       }).catch(error=>{
@@ -111,8 +106,15 @@ export default class Profile extends React.Component {
           <div style={{width:'100%',background:'white'}}  className="profile-grid">
             <div style={{width:'80%'}}>
               <div style={{margin:'0.5em',background:'white',position:'relative'}}>
-                <input id="id" onChange={handleChange} defaultValue={this.state.profileData.id} placeholder="BITS ID" type="text" className="form-inp"/>
+                <select onChange={handleChange} id="dept" className="form-inp">
+                  <option>Electrician</option>
+                  <option>Carpenter</option>
+                  <option>Plumber</option>
+                  <option>IT</option>
+                  <option>Warden</option>
+                </select>
                 <div className="bottom-border"/ >
+
                 </div>
               </div>
               <div style={{width:'80%'}}>
@@ -123,16 +125,18 @@ export default class Profile extends React.Component {
                 </div>
                 <div style={{width:'80%'}}>
                   <div style={{margin:'0.5em',background:'white',position:'relative'}}>
-                    <input value={this.state.profileData.phone_number} id="phone_number" onChange={handleChange} placeholder="Phone No." type="text" className="form-inp"/>
                     <div className="bottom-border"/ >
                     </div>
+                    <div style={{margin:'0.5em',background:'white',position:'relative'}}>
+                      <input value={this.state.profileData.phone_number} id="phone_number" onChange={handleChange} placeholder="Phone No." type="text" className="form-inp"/>
+                      <div className="bottom-border"/ >
+                      </div>
+                    </div>
+                    <button onClick={()=>updateProfile()} style={{background:'dodgerblue',fontSize:'25px',color:'white',border:'none',outline:'none',padding:'4px 16px',borderRadius:'5px',cursor:'pointer',margin:'0.5em'}}>Update Profile</button>
                   </div>
-                  <button onClick={()=>updateProfile()} style={{background:'dodgerblue',fontSize:'25px',color:'white',border:'none',outline:'none',padding:'4px 16px',borderRadius:'5px',cursor:'pointer',margin:'0.5em'}}>Update Profile</button>
                 </div>
-              </div>
-
-            }
-          </div>
-        );
+              }
+            </div>
+          );
+        }
       }
-    }
