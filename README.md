@@ -17,24 +17,47 @@ https://bits-hostel.herokuapp.com/
 
 Click to view full product report with all details related to the product's developement and management.
 ###  `Usage`
+<details><summary>Read</summary>
+<p>
+
 * This web application can help students to post their complaints directly on the System which becomes visible to the hostel supervisor, hostel representatives, and the respective hostel staff. 
 * Students can give different tag attributes to the complaints using a drop-down menu that basically indicates the scope of the complaint ( example:- carpenter, plumber, electrician, IT ). 
 
 * Hostel Representatives can also view the complaints and check which complaints have not been resolved and which are pending for a long time. 
 * Different staff members can view and take up the complaints which are under their scope and after completion mark them completed. 
 * Hostel Supervisors and Admin can see monthly reports of complaints and analyze the important issues.
+</p>
+</details>
 
 ###  `Product Backlog`
 ![image](https://user-images.githubusercontent.com/53102161/127733951-5d4c5e8c-ea05-4eda-ba4a-e4cb136ffa7d.png)
 
+
 ### `Use Case Diagram`
+<details><summary>View</summary>
+<p>
+
 ![image](https://user-images.githubusercontent.com/53102161/127734010-6d07d349-abd9-45fe-94df-da8d4d8ba112.png)
+</p>
+</details>
+
 
 ### `Class Diagram`
+<details><summary>View</summary>
+<p>
+  
 ![image](https://user-images.githubusercontent.com/53102161/127734035-190cbc57-9419-43e1-903e-19f83329068e.png)
+</p>
+</details>
 
 ### `System Architecture`
+<details><summary>View</summary>
+<p>
+  
 ![image](https://user-images.githubusercontent.com/53102161/127734069-80cd786e-7085-460b-bb66-d84bb0af4a2c.png)
+</p>
+</details>
+
 ### System design decisions based on our usage and use case for further development of the product
 * We found it better to use a Monolith as it is simple to develop relative to Microservices and easier to deploy and Microservices often have problems related to security and network latency and microservices are more costly in terms of network usage and as our application is related to educational organisations so it’s better to have low latency.
 * Also we use both RDBMS and NoSQL databases so that the Data that needs operations like joins to be performed can be stored in RDBMS, while others can be stored on NoSQL databases. 
