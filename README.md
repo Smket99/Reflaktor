@@ -35,7 +35,7 @@ Click to view full product report with all details related to the product's deve
 
 ### `System Architecture`
 ![image](https://user-images.githubusercontent.com/53102161/127734069-80cd786e-7085-460b-bb66-d84bb0af4a2c.png)
-### System design decisions based on our usage and use case for further development of the project
+### System design decisions based on our usage and use case for further development of the product
 * We found it better to use a Monolith as it is simple to develop relative to Microservices and easier to deploy and Microservices often have problems related to security and network latency and microservices are more costly in terms of network usage and as our application is related to educational organisations so it’s better to have low latency.
 * Also we use both RDBMS and NoSQL databases so that the Data that needs operations like joins to be performed can be stored in RDBMS, while others can be stored on NoSQL databases. 
 * We use a database cache to help provide information which is frequently accessed, without having to query the databases. We did not use a CQRS based monolith because in our application there is no asymmetric factor of read and write requests. 
