@@ -10,6 +10,12 @@ https://bits-hostel.herokuapp.com/
 3) Hritik Singh Kushwah :superhero_man: ([GitHub](https://github.com/hritiksk392))
 4) Akshit :mage_man: ([GitHub](https://github.com/akshitkh47612))
 5) Bhavish Pahwa :surfing_man: ([GitHub](https://github.com/bp-high))
+
+### `Full Product Report`
+[Product Report](https://docs.google.com/document/d/1vUUNyt9AGVOCtCuUa51glFmkQ4gn9Rdg2nPqkLx2x1c/edit?usp=sharing)
+
+
+Click to view full product report with all details related to the product's developement and management.
 ###  `Usage`
 * This web application can help students to post their complaints directly on the System which becomes visible to the hostel supervisor, hostel representatives, and the respective hostel staff. 
 * Students can give different tag attributes to the complaints using a drop-down menu that basically indicates the scope of the complaint ( example:- carpenter, plumber, electrician, IT ). 
