@@ -2,7 +2,9 @@
 “Reflaktor” is a hostel management web application aimed at students on our campus. 
 
 ### `Repo-Visits`
-![Visitor Count](https://profile-counter.glitch.me/{Smket99}/count.svg)
+[![Visits Badge](https://badges.pufler.dev/visits/Smket99/Reflaktor)](https://badges.pufler.dev)
+
+
 
 ### `Deployed web app`
 https://bits-hostel.herokuapp.com/
