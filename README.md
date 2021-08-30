@@ -1,6 +1,9 @@
 ## Reflaktor Project
 “Reflaktor” is a hostel management web application aimed at students on our campus. 
 
+### `Repo-Visits`
+![Visitor Count](https://profile-counter.glitch.me/{Smket99}/count.svg)
+
 ### `Deployed web app`
 https://bits-hostel.herokuapp.com/
 
